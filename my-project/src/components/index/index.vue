@@ -14,7 +14,7 @@
 </div>
         <div class="page-main-content has-header" id="page-main-content">
             <div class="home-content">
-                <div class="home-left-wrap fl">
+                <!-- <div class="home-left-wrap fl">
                     <ul class="modules-tree">
 
                           <li class="module-item course" :class="{opened:opened==true}" > 
@@ -55,9 +55,9 @@
                        <li class="module-item">学员管理</li>
                        <li class="module-item">成绩管理</li>
                     </ul>
-                </div>
-                
-                <div class="home-right-wrap fr">
+                </div> -->
+                <tree></tree>
+                <!-- <div class="home-right-wrap fr">
                     <div class="right-content course-detail">
                       <div class="con-header">课程详情 <span class="opt-bar add-course">添加题目</span></div>
                       <ul class="con-list test-list">
@@ -124,9 +124,6 @@
                         </li>   
                       </ul>
                     </div>
-      
-
-
 
                    <div class="right-content teacher-detail score-detail">
                       <div class="con-header">成绩列表<span class="opt-bar add-teacher">添加学员成绩</span></div>
@@ -153,7 +150,11 @@
                         </li>   
                       </ul>
                     </div>
-                </div>
+                
+                
+                
+                </div> -->
+                 <maincontent></maincontent>  
 
                 <div style="clear: both;"></div>
             </div>
@@ -165,13 +166,12 @@
     </footer>
     </div>  
 </div>
-            
-  
-  
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import tree from"./tree/tree.vue";
+import maincontent from "./maincontent/maincontent";
 
 export default {
   name: "login",
@@ -187,6 +187,10 @@ export default {
       showWrongMsg: "getShowWrongMsg",
       wrongMsg: "getWrongMsg"
     })
+  },
+  components:{
+   tree,
+   maincontent
   },
   methods: {
     openTree(){
@@ -228,7 +232,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style  scoped>
+<style>
 .index{
   height: 100%
 }
@@ -260,12 +264,12 @@ export default {
     position: relative;
 }
 .logo{
-    display: inline-block;
+    /* display: inline-block; */
     width: 325px;
     height: 40px;
     margin-top: 32px;
     float: left;
-        text-decoration: none;
+    text-decoration: none;
     font-size: 30px;
     color: #ffffff;
     padding-left: 40px;
@@ -290,7 +294,7 @@ export default {
     vertical-align: middle;
     margin-bottom: 2px;
     margin-right:5px;
-    background-image: url("../../../static/images/login/logout.png");
+    /* background-image: url("../../../static/images/login/logout.png"); */
 }
 .page-line {
   overflow: hidden;
@@ -440,7 +444,7 @@ export default {
   height:auto;
 }
 .module-item.course .arrow{
-  display: inline-block;
+  /* display: inline-block; */
   vertical-align: middle;
   padding-right: 20px;
     float: right;
@@ -504,7 +508,7 @@ border-bottom: 1px solid #dedede;
 }
 
 .course-item .opt-bar{
-  display: inline-block;
+  /* display: inline-block; */
   margin-right: 10px;
   float: right;
 }
@@ -535,7 +539,7 @@ border-bottom: 1px solid #dedede;
  color: #fff;
 }
 .home-right-wrap .con-header .opt-bar{
-  display: inline-block;
+  /* display: inline-block; */
   float: right;
   font-size: 16px;
   text-decoration: underline;

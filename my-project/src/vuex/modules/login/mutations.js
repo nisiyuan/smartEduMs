@@ -11,7 +11,7 @@ const mutations = {
     },
     //设置错误信息
     [types.SET_WORNG_MSG](state,data){
-        state.showErr=ture;
+        state.showErr= 1;
         state.wrongMsg = data;
     }
 }
