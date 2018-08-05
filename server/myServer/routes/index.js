@@ -12,7 +12,7 @@ var mysql = _mysql.createConnection({
     user:'root',
     password: 'admin',
     port:'3306',
-    database:'test',
+    database:'edudb',
 });
 mysql.connect(function(err){
     if(err){
@@ -22,17 +22,11 @@ mysql.connect(function(err){
     }
     console.log("连接成功了")
 })
-router.get('/test/new_table',(req,res) => {
-    var tempUrl = req._parsedOriginalUrl.query;
-    var iterms = tempUrl.split("&");
-    var arr,Json={};
-    for(var i=0;i<iterms.length;i++){
-        arr=iterms[i].split("=");
-        Json[arr[0]]=arr[1];
-    }
+router.get('/login',(req,res) => {
+    var query = req.query;
+    console.log(query)
     //var _sql = "SELECT * FROM userinfo Where "+"user_name='"+Json.user_name+"'AND password='"+Json.password+"'";
-    var _sql = "SELECT * FROM new_table";
-
+    var _sql = "SELECT * from user_info Where id='"+query.user_name+"' AND pwd='"+query.password+"'";
     console.log(_sql)
     mysql.query(_sql,function(err,rows){
         console.log(rows)
@@ -41,7 +35,12 @@ router.get('/test/new_table',(req,res) => {
         }
         if(err){
             console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
             return
+    
         }
         if(rows.length == 0){
             data={
@@ -51,9 +50,11 @@ router.get('/test/new_table',(req,res) => {
         }else{
             data={
                 errcode:0,
-                data:rows
+                data:{
+                    type:rows[0].type
+                }
             }
-            data.data[0].password="******";
+            //data.data[0].password="******";
         }
         res.send(data)
     }) 

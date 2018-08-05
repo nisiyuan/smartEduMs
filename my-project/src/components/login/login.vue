@@ -13,10 +13,10 @@
       <h3>用户登录</h3>
       <div class="div-user-panel">
         <div class="err-tips">
-          <span class="user-warning ml-10">请输入正确的教师空间账号</span>
+          <span class="user-warning ml-10"  v-show="showWrongMsg" >{{wrongMsg}}</span>
         </div>
-        <input id="user-username" type="text" class="username" placeholder="请输入OKAY号或手机号 ">
-        <input id="user-password" type="password" class="password" placeholder="请输入密码">
+        <input ref="username" id="user-username" type="text" class="username" placeholder="请输入账号 ">
+        <input ref="password" id="user-password" type="password" class="password" placeholder="请输入密码">
       </div>
       <div class="div-message-panel">
         <div class="err-tips">
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="div-btn">
-        <a class="btn btn-login" href="javascript:void(0)">登录</a>
+        <a class="btn btn-login" href="javascript:void(0)"  @click="click">登录</a>
       </div>
     </div>
     <div class="contact-way-panel none">
@@ -50,7 +50,7 @@ export default {
   data () {
     return {
       userName: '',
-      passWord: '',
+      passWord: ''
     }
   },
   computed:{
@@ -152,11 +152,10 @@ export default {
     .login-list .err-tips {
       margin-top: 10px;
       color: #FF591F;
-      background-color: #FFEDE6;
       font-size: 14px;
       line-height: 28px;
       height: 28px;
-      visibility: hidden
+      /* visibility: hidden */
     }
 
     .login-list .login-wrap .div-user-panel {
@@ -243,6 +242,7 @@ export default {
     }
 
     .login-list .div-btn .btn {
+      display: inline-block;
       border-radius: 2px;
       height: 52px;
       width: 320px;
@@ -250,7 +250,9 @@ export default {
       text-align: center;
       border: 0;
       color: #fff;
-      font-size: 16px
+      font-size: 16px;
+      background-color: #448cff;
+      text-decoration: none;
     }
 
     .logo {
