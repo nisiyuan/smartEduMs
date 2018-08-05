@@ -8,24 +8,8 @@
                                    课程列表 <span class=" arrow arrow-down">&#8744;</span> <span class="arrow arrow-up">&#8743;</span>
                                </div>
                              <ul class="course-list">
-                                <li class="course-item selected" >
-                                  <span class="name">课程1</span>
-                                  <span class="opt-bar"> 
-                                    <span class="btn pdate">修改</span>
-                                    <span class="btn update">删除</span>
-                                    </span>
-                                </li>
-
-                                <li class="course-item " >
-                                  <span class="name">课程1</span>
-                                  <span class="opt-bar"> 
-                                    <span class="btn pdate">修改</span>
-                                    <span class="btn update">删除</span>
-                                    </span>
-                                </li>
-
-                                <li class="course-item " >
-                                  <span class="name">课程1</span>
+                                <li v-for="item in list" :key="item.id" class="course-item selected" >
+                                  <span class="name">{{item.name}}</span>
                                   <span class="opt-bar"> 
                                     <span class="btn pdate">修改</span>
                                     <span class="btn update">删除</span>
@@ -56,8 +40,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-       opened:"getTreeStatus",
-       section:"getSection"
+      list:"getTreeList",
+      opened:"getTreeStatus"
     })
   },
   methods: {
@@ -68,10 +52,13 @@ export default {
     },
     changeSection(data){
       this.$store.dispatch('changeContetSection',data);
+      this.$store.dispatch('getSectionData',data);
     }
 
   },
-  mounted() {},
+  mounted() {
+    this.$store.dispatch('getTreeData');
+  },
   watch: {
 
   }

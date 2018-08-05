@@ -8,14 +8,14 @@
                           <span class="info acc">账号</span>
                           <span class="info tel">联系方式</span>
                          </div>
-                      <ul class="con-list teacher-list">
-                        <li class="item teacher">
+                      <ul  v-if="list.length" class="con-list teacher-list">
+                        <li v-for="(item,index) in list" :key=item.id class="item teacher">
                         
-                          <span class="index">1</span>
-                          <span class="info name">培训教师一</span>
-                          <span class="info schoole">海淀区八一中学</span>
-                          <span class="info account">1533668689</span>
-                          <span class="info contact">15176897689</span>
+                          <span class="index">{{index+1}}</span>
+                          <span class="info name">{{item.name}}</span>
+                          <span class="info schoole">{{item.school}}</span>
+                          <span class="info account">{{item.id}}</span>
+                          <span class="info contact">{{item.contact}}</span>
                          
                           <span class="opt-bar">
                             <span class="btn update">修改</span>
@@ -23,6 +23,9 @@
                           </span>
                         </li>   
                       </ul>
+                     <div v-if="!list.length" class="emptypage">
+                          没有相关信息~
+                      </div>
 </div>
 </template>
 
@@ -40,8 +43,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      showWrongMsg: "getShowWrongMsg",
-      wrongMsg: "getWrongMsg"
+      list:"getSectionData"
     })
   },
   methods: {

@@ -59,6 +59,112 @@ router.get('/login',(req,res) => {
         res.send(data)
     }) 
 })
+
+// 获取学生信息
+router.get('/stuinfo',(req,res) => {
+    var query = req.query;
+    console.log(query)
+    //var _sql = "SELECT * FROM userinfo Where "+"user_name='"+Json.user_name+"'AND password='"+Json.password+"'";
+    var _sql = "SELECT * from stu_info";
+    console.log(_sql)
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0,
+            list:rows
+        }
+        res.send(data)
+    }) 
+})
+
+// 获取教师信息
+router.get('/teacherinfo',(req,res) => {
+    var query = req.query;
+    console.log(query)
+    var _sql = "SELECT id,name,school,contact from user_info Where type!='1'";
+    console.log(_sql)
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0,
+            list:rows
+        }
+        res.send(data)
+    }) 
+})
+
+// 获取成绩信息
+router.get('/scoreinfo',(req,res) => {
+    var query = req.query;
+    console.log(query)
+    var _sql = "SELECT * from score_info";
+    console.log(_sql)
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0,
+            list:rows
+        }
+        res.send(data)
+    }) 
+})
+
+// 获取成绩信息
+router.get('/treeinfo',(req,res) => {
+    var query = req.query;
+    var _sql = "SELECT * from course_info";
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0,
+            list:rows
+        }
+        res.send(data)
+    }) 
+})
 // mysql.end(function(err){
 //     if(err){
 //         return;

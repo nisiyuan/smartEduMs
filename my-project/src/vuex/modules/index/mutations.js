@@ -8,7 +8,19 @@ const mutations = {
     //切换内容展示区域
     [types.CHANGE_CONTENT_SECTION](state,data){
         state.section =data;
+    },
+    //切换内容展示区域
+    [types.GET_SECTION_DATA](state,data){
+        state.contentList =data;
+    },
+    //课程目录树
+    [types.GET_TREE_DATA](state,data){
+        console.log(data)
+        state.treeList =data;
     }
+
+
+   
 }
 
 export default mutations

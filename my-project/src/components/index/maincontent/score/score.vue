@@ -8,20 +8,28 @@
                           <span class="info acc">账号</span>
                           <span class="info tel">成绩/分</span>
                          </div>
-                      <ul class="con-list teacher-list">
-                        <li class="item teacher">
-                          <span class="index">1</span>
-                          <span class="info name">学员一</span>
-                          <span class="info schoole">海淀区八一中学</span>
-                          <span class="info account">1533668689</span>
-                          <span class="info contact">100</span>
-                         
+                      <ul  v-if="list.length" class="con-list teacher-list">
+                        <li v-for="(item,index) in list" :key="item.id" class="item teacher">
+
+                          <span class="index">{{index+1}}</span>
+                          <span class="info name">{{item.name}}</span>
+                          <span class="info schoole">{{item.school}}</span>
+                          <span class="info account">{{item.account}}</span>
+                          <span class="info contact">{{item.score}}</span>
+                
+                          <span class="opt-bar">
+                            <span class="btn update">修改</span>
+                            <span class="btn delete">删除</span>
+                          </span>
                           <span class="opt-bar">
                             <span class="btn update">修改</span>
                             <span class="btn delete">删除</span>
                           </span>
                         </li>   
                       </ul>
+                       <div v-if="!list.length" class="emptypage">
+                          没有相关信息~
+                      </div>
     </div>
 </template>
 
@@ -39,8 +47,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      showWrongMsg: "getShowWrongMsg",
-      wrongMsg: "getWrongMsg"
+      list:"getSectionData"
     })
   },
   methods: {
