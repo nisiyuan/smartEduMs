@@ -567,7 +567,7 @@ display: inline-block;
 vertical-align: middle;
 }
 .home-right-wrap .right-content.course-detail{
-  display: none
+  /* display: none */
 }
 .home-right-wrap .right-content .con-list .opt-bar {
  float: right;
@@ -588,7 +588,7 @@ vertical-align: middle;
    color: -webkit-link;
 }
 .home-right-wrap  .teacher-detail{
-  display: none;
+  /* display: none; */
 }
 .home-right-wrap  .teacher-detail span{
   display: inline-block;
@@ -612,7 +612,7 @@ vertical-align: middle;
   text-align: center;
 }
 .home-right-wrap  .stu-detail {
-  display: none;
+  /* display: none; */
 }
 .home-right-wrap  .score-detail {
   display:block;

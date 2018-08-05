@@ -3,9 +3,9 @@ import * as getters from './getters'
 import mutations from './mutations'
 
 const state = {
-  showWrongMsg: false,//是否展示错误信息
-  userInfo:{},//用户信息
-  wrongMsg:"",//错误信息
+  section:0,      //内容区 默认0   课程列表 1教师 2 学员 3 成绩
+  opened:false    //树是否展开
+
 }
 
 export default{

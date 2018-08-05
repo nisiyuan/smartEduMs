@@ -1,9 +1,9 @@
 <template>                    
 <div class="home-right-wrap fr">
-      <course></course>
-      <score></score>
-      <student></student>
-      <teacher></teacher>
+      <course v-show="section==0"></course>
+      <teacher v-show="section==1"></teacher>
+      <student v-show="section==2"></student>
+      <score v-show="section==3"></score>
 </div>
 </template>
 
@@ -26,11 +26,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      showWrongMsg: "getShowWrongMsg",
-      wrongMsg: "getWrongMsg"
+     section:"getSection"
     })
   },
-  componentd:{
+  components:{
       course,
       score,
       student,

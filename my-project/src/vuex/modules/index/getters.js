@@ -1,3 +1,2 @@
-export const getShowWrongMsg = state => state.showWrongMsg
-export const getUserInfo = state => state.userInfo
-export const getWrongMsg = state => state.wrongMsg
+export const getSection = state => state.section
+export const getTreeStatus = state => state.opened

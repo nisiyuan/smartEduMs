@@ -3,8 +3,8 @@
                 <div class="home-left-wrap fl">
                     <ul class="modules-tree">
 
-                          <li class="module-item course" :class="{opened:opened==true}" > 
-                               <div class="tree-item" @click="openTree" >
+                          <li class="module-item course" :class="{opened:opened}" > 
+                               <div class="tree-item" @click="toggleTree" >
                                    课程列表 <span class=" arrow arrow-down">&#8744;</span> <span class="arrow arrow-up">&#8743;</span>
                                </div>
                              <ul class="course-list">
@@ -31,15 +31,12 @@
                                     <span class="btn update">删除</span>
                                     </span>
                                 </li>
-
                                 <li class="course-item addcourse">添加课程   +</li>
                             </ul>
-                           
                            </li>
-                     
-                        <li class="module-item">教师管理</li>
-                       <li class="module-item">学员管理</li>
-                       <li class="module-item">成绩管理</li>
+                        <li class="module-item" @click="changeSection(1)">教师管理</li>
+                       <li class="module-item" @click="changeSection(2)">学员管理</li>
+                       <li class="module-item" @click="changeSection(3)">成绩管理</li>
                     </ul>
                 </div>
                 
@@ -54,52 +51,29 @@ export default {
   name: "tree",
   data() {
     return {
-      userName: "",
-      passWord: "",
-      opened:false
+     
     };
   },
   computed: {
     ...mapGetters({
-      showWrongMsg: "getShowWrongMsg",
-      wrongMsg: "getWrongMsg"
+       opened:"getTreeStatus",
+       section:"getSection"
     })
   },
   methods: {
-    openTree(){
-      this.opened=!this.opened;
+    toggleTree(){
+      this.$store.dispatch('changeTreeStatus');
+      if(this.section!=0) 
+      this.$store.dispatch('changeContetSection',0);
     },
-    test(data) {
-      var sendData = {
-        user_id: data
-      };
-      this.$store.dispatch("getUserName", sendData);
-    },
-
-    click() {
-      this.userName = this.$refs.username.value.trim();
-      this.passWord = this.$refs.password.value.trim();
-      if (this.userName == "" || this.passWord == "") {
-        this.$store.dispatch("changeSetWrongMsg", "用户名或密码不能为空");
-        this.$store.dispatch("changeShowWrongMsg", true);
-        return;
-      }
-      var sendData = {
-        user_name: this.userName,
-        password: this.passWord
-      };
-      this.$store.dispatch("userLogin", sendData);
-    },
-    //错误信息展示3秒
-    restState() {
-      setTimeout(() => {
-        this.$store.dispatch("changeShowWrongMsg", false);
-      }, 3000);
+    changeSection(data){
+      this.$store.dispatch('changeContetSection',data);
     }
+
   },
   mounted() {},
   watch: {
-    showWrongMsg: "restState"
+
   }
 };
 </script>
