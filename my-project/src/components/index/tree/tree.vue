@@ -8,8 +8,8 @@
                                    课程列表 <span class=" arrow arrow-down">&#8744;</span> <span class="arrow arrow-up">&#8743;</span>
                                </div>
                              <ul class="course-list">
-                                <li v-for="item in list" :key="item.id" class="course-item selected" >
-                                  <span class="name">{{item.name}}</span>
+                                <li v-for="(item) in list" :key="item.id" class="course-item">
+                                  <span class="name" @click="showCourseDetail(item.id)">{{item.name}}</span>
                                   <span class="opt-bar"> 
                                     <span class="btn pdate">修改</span>
                                     <span class="btn update">删除</span>
@@ -53,7 +53,14 @@ export default {
     changeSection(data){
       this.$store.dispatch('changeContetSection',data);
       this.$store.dispatch('getSectionData',data);
+    },
+    showCourseDetail(id){
+        let param={
+            courseId:id
+        };
+    this.$store.dispatch('getCourseDetail',param);
     }
+
 
   },
   mounted() {

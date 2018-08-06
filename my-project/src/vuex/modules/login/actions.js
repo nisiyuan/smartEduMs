@@ -10,7 +10,7 @@ export const userLogin = ({commit}, data) => {
     serverConfig.params = data;
     serverConfig.successcb = (res) => {
       if(res.errcode == 0){
-        commit(types.SET_USEER_INFO,res.data)
+        commit(types.USER_TYPE,res.data.type)
       }else{
         commit(types.CHANGE_WRONG_MSG,true);
         commit(types.SET_WORNG_MSG,res.errmsg);

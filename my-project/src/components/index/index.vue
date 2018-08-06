@@ -1,17 +1,15 @@
 <template>
-   <div class="index">
+<div>
+<div  class="index">
  
-  <div class="page-main-header" id="page-main-header">
-    <header>
-        <a href="/" class="logo">智慧教育培训管理系统</a>
+     <div class="page-main-header" id="page-main-header">
+           <header>
+               <a href="/" class="logo">智慧教育培训管理系统</a>
        	        <div class="page-user-center">
-               
-            <a class="logout" href="javascipt:;"><i class="mr-5"></i>退出</a>
-                        
-        </div>
-
-    </header>    
-</div>
+                      <a class="logout" href="javascipt:;"><i class="mr-5"></i>退出</a>        
+                </div>
+          </header>    
+     </div>
         <div class="page-main-content has-header" id="page-main-content">
             <div class="home-content">
                 <!-- <div class="home-left-wrap fl">
@@ -166,6 +164,14 @@
     </footer>
     </div>  
 </div>
+ <!-- v-if="userType!=null"
+<div v-else class="nologin">
+   错误的页面！！！！！！！T！！！！！！
+</div> 
+  -->
+
+</div>
+
 </template>
 
 <script>
@@ -185,7 +191,8 @@ export default {
   computed: {
     ...mapGetters({
       showWrongMsg: "getShowWrongMsg",
-      wrongMsg: "getWrongMsg"
+      wrongMsg: "getWrongMsg",
+      userType: "getUserType"
     })
   },
   components:{
@@ -558,6 +565,9 @@ border-bottom: 1px solid #dedede;
   margin: 0 10px;
   padding: 0 20px 0 5px;
   border-bottom: 1px solid #dedede;
+}
+.item .index{
+    margin-right: 20px
 }
 .item:last-child{
     border-bottom: none;

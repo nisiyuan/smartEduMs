@@ -13,7 +13,14 @@ const mutations = {
     [types.SET_WORNG_MSG](state,data){
         state.showErr= 1;
         state.wrongMsg = data;
+    },
+    //设置错误信息
+    [types.USER_TYPE](state,data){
+        state.userType=data;
     }
+
+
+    
 }
 
 export default mutations

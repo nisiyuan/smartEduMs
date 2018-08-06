@@ -1,10 +1,10 @@
 <template>
   <div class="right-content course-detail">
                       <div class="con-header">课程详情 <span class="opt-bar add-course">添加题目</span></div>
-                      <ul class="con-list test-list">
-                        <li class="item test">
+                      <ul v-if="list.length" class="con-list test-list">
+                        <li v-for="(item,index) in list" :key="item.id" class="item test">
                           <a href="javascript:;" class="show-detail">
-                          <span class="index">1</span><span class="title">如何登陆教师空间个人体积</span>
+                             <span class="index">{{index+1}}</span><span class="title">{{item.body}}</span>
                           </a>
                           <span class="opt-bar">
                             <span class="btn update">修改</span>
@@ -12,6 +12,9 @@
                           </span>
                         </li>
                       </ul>
+                      <div v-else class="no-question">
+                          没有题目，点击右上角，添加题目~
+                      </div>
  </div>
 </template>
 
@@ -22,15 +25,11 @@ export default {
   name: "course",
   data() {
     return {
-      userName: "",
-      passWord: "",
-      opened:false
     };
   },
   computed: {
     ...mapGetters({
-      showWrongMsg: "getShowWrongMsg",
-      wrongMsg: "getWrongMsg"
+      list: "getQuestionList"
     })
   },
   methods: {

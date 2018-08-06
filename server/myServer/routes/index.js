@@ -165,6 +165,32 @@ router.get('/treeinfo',(req,res) => {
         res.send(data)
     }) 
 })
+
+// 获取课程信息
+router.get('/coursedetail',(req,res) => {
+    var query = req.query;
+    var _sql = "SELECT * from question_info Where courseid='"+query.courseId+"'";
+
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0,
+            list:rows
+        }
+        res.send(data)
+    }) 
+})
+
 // mysql.end(function(err){
 //     if(err){
 //         return;

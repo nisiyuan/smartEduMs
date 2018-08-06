@@ -15,8 +15,12 @@ const mutations = {
     },
     //课程目录树
     [types.GET_TREE_DATA](state,data){
-        console.log(data)
         state.treeList =data;
+    },
+    //课程信息
+    [types.GET_QUESTION_DATA](state,data){
+        console.log(data)
+        state.questionList =data;
     }
 
 
