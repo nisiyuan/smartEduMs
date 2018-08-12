@@ -1,7 +1,6 @@
 <template>
 <div>
-<div  class="index">
- 
+<div  class="index" >
      <div class="page-main-header" id="page-main-header">
            <header>
                <a href="/" class="logo">智慧教育培训管理系统</a>
@@ -12,157 +11,17 @@
      </div>
         <div class="page-main-content has-header" id="page-main-content">
             <div class="home-content">
-                <!-- <div class="home-left-wrap fl">
-                    <ul class="modules-tree">
-
-                          <li class="module-item course" :class="{opened:opened==true}" > 
-                               <div class="tree-item" @click="openTree" >
-                                   课程列表 <span class=" arrow arrow-down">&#8744;</span> <span class="arrow arrow-up">&#8743;</span>
-                               </div>
-                             <ul class="course-list">
-                                <li class="course-item selected" >
-                                  <span class="name">课程1</span>
-                                  <span class="opt-bar"> 
-                                    <span class="btn pdate">修改</span>
-                                    <span class="btn update">删除</span>
-                                    </span>
-                                </li>
-
-                                <li class="course-item " >
-                                  <span class="name">课程1</span>
-                                  <span class="opt-bar"> 
-                                    <span class="btn pdate">修改</span>
-                                    <span class="btn update">删除</span>
-                                    </span>
-                                </li>
-
-                                <li class="course-item " >
-                                  <span class="name">课程1</span>
-                                  <span class="opt-bar"> 
-                                    <span class="btn pdate">修改</span>
-                                    <span class="btn update">删除</span>
-                                    </span>
-                                </li>
-
-                                <li class="course-item addcourse">添加课程   +</li>
-                            </ul>
-                           
-                           </li>
-                     
-                        <li class="module-item">教师管理</li>
-                       <li class="module-item">学员管理</li>
-                       <li class="module-item">成绩管理</li>
-                    </ul>
-                </div> -->
-                <tree></tree>
-                <!-- <div class="home-right-wrap fr">
-                    <div class="right-content course-detail">
-                      <div class="con-header">课程详情 <span class="opt-bar add-course">添加题目</span></div>
-                      <ul class="con-list test-list">
-                        <li class="item test">
-                          <a href="javascript:;" class="show-detail">
-                          <span class="index">1</span><span class="title">如何登陆教师空间个人体积</span>
-                          </a>
-                          <span class="opt-bar">
-                            <span class="btn update">修改</span>
-                            <span class="btn delete">删除</span>
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-
-                     <div class="right-content teacher-detail">
-                      <div class="con-header">培训师列表详情<span class="opt-bar add-teacher">添加培训师</span></div>
-                       <div class="sub-header">
-                          <span class="info ind">序号</span>
-                          <span class="info name">账号名</span>
-                          <span class="info zone">校区</span>
-                          <span class="info acc">账号</span>
-                          <span class="info tel">联系方式</span>
-                         </div>
-                      <ul class="con-list teacher-list">
-                        <li class="item teacher">
-                        
-                          <span class="index">1</span>
-                          <span class="info name">培训教师一</span>
-                          <span class="info schoole">海淀区八一中学</span>
-                          <span class="info account">1533668689</span>
-                          <span class="info contact">15176897689</span>
-                         
-                          <span class="opt-bar">
-                            <span class="btn update">修改</span>
-                            <span class="btn delete">删除</span>
-                          </span>
-                        </li>   
-                      </ul>
-                    </div>
-
-                    <div class="right-content teacher-detail stu-detail">
-                      <div class="con-header">学员列表<span class="opt-bar add-teacher">添加学员</span></div>
-                       <div class="sub-header">
-                          <span class="info ind">序号</span>
-                          <span class="info name">姓名</span>
-                          <span class="info zone">校区</span>
-                          <span class="info acc">账号</span>
-                          <span class="info tel">联系方式</span>
-                         </div>
-                      <ul class="con-list teacher-list">
-                        <li class="item teacher">
-                        
-                          <span class="index">1</span>
-                          <span class="info name">学员一</span>
-                          <span class="info schoole">海淀区八一中学</span>
-                          <span class="info account">1533668689</span>
-                          <span class="info contact">15176897689</span>
-                         
-                          <span class="opt-bar">
-                            <span class="btn update">修改</span>
-                            <span class="btn delete">删除</span>
-                          </span>
-                        </li>   
-                      </ul>
-                    </div>
-
-                   <div class="right-content teacher-detail score-detail">
-                      <div class="con-header">成绩列表<span class="opt-bar add-teacher">添加学员成绩</span></div>
-                       <div class="sub-header">
-                          <span class="info ind">序号</span>
-                          <span class="info name">姓名</span>
-                          <span class="info zone">校区</span>
-                          <span class="info acc">账号</span>
-                          <span class="info tel">成绩/分</span>
-                         </div>
-                      <ul class="con-list teacher-list">
-                        <li class="item teacher">
-                        
-                          <span class="index">1</span>
-                          <span class="info name">学员一</span>
-                          <span class="info schoole">海淀区八一中学</span>
-                          <span class="info account">1533668689</span>
-                          <span class="info contact">100</span>
-                         
-                          <span class="opt-bar">
-                            <span class="btn update">修改</span>
-                            <span class="btn delete">删除</span>
-                          </span>
-                        </li>   
-                      </ul>
-                    </div>
-                
-                
-                
-                </div> -->
+                 <tree></tree>
                  <maincontent></maincontent>  
-
                 <div style="clear: both;"></div>
             </div>
         </div> 
     <div class="page-footer">       
-    <footer>
-        <p class="f-normal">©2018 北京点石经纬科技有限公司 | 京ICP备14011885号-9 | 客服热线4009960175</p>
-		<!-- <p class="f-small">本站所有资源均来自用户分享或战略合作平台流转而来，版权归原作者所有，如有侵犯版权，请立刻和本站联系并提供证据，本站将在三个工作日内处理。</p> -->
-    </footer>
+         <footer>
+	         <p class="f-normal">本站所有资源均来自用户分享或战略合作平台流转而来，版权归原作者所有，如有侵犯版权，请立刻和本站联系并提供证据，本站将在三个工作日内处理。</p>
+         </footer>
     </div>  
+    <modal></modal>
 </div>
  <!-- v-if="userType!=null"
 <div v-else class="nologin">
@@ -178,14 +37,15 @@
 import { mapGetters } from "vuex";
 import tree from"./tree/tree.vue";
 import maincontent from "./maincontent/maincontent";
-
+import modal from "./modal/modal";
 export default {
   name: "login",
   data() {
     return {
       userName: "",
       passWord: "",
-      opened:false
+      opened:false,
+      param:{title:"fdsfsa",content:"fdsfsa",confirmBtn:"fdsfs",cancelBtn:"dsafa",type:""}
     };
   },
   computed: {
@@ -197,7 +57,8 @@ export default {
   },
   components:{
    tree,
-   maincontent
+   maincontent,
+   modal
   },
   methods: {
     openTree(){

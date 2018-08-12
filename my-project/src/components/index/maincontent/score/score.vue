@@ -21,10 +21,6 @@
                             <span class="btn update">修改</span>
                             <span class="btn delete">删除</span>
                           </span>
-                          <span class="opt-bar">
-                            <span class="btn update">修改</span>
-                            <span class="btn delete">删除</span>
-                          </span>
                         </li>   
                       </ul>
                        <div v-if="!list.length" class="emptypage">
