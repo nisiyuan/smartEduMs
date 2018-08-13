@@ -9,8 +9,8 @@
              <slot name="content"></slot>
          </div>
          <div class="opt-bar">
-             <a href="javascript:;" class="confirm">确定</a>
-             <a href="javascript:;" class="cancel">取消</a>
+             <a href="javascript:;" class="btn confirm">确定</a>
+             <a href="javascript:;" class="btn cancel">取消</a>
          </div>
      </div>
  </div>
@@ -22,54 +22,17 @@ import { mapGetters } from "vuex";
 export default {
   name: "modal",
   data() {
-    return {
-      userName: "",
-      passWord: "",
-      opened:false
-    };
   },
   computed: {
-    ...mapGetters({
-      list:"getSectionData"
-    })
   },
   methods: {
-    openTree(){
-      this.opened=!this.opened;
-    },
-    test(data) {
-      var sendData = {
-        user_id: data
-      };
-      this.$store.dispatch("getUserName", sendData);
-    },
-
-    click() {
-      this.userName = this.$refs.username.value.trim();
-      this.passWord = this.$refs.password.value.trim();
-      if (this.userName == "" || this.passWord == "") {
-        this.$store.dispatch("changeSetWrongMsg", "用户名或密码不能为空");
-        this.$store.dispatch("changeShowWrongMsg", true);
-        return;
-      }
-      var sendData = {
-        user_name: this.userName,
-        password: this.passWord
-      };
-      this.$store.dispatch("userLogin", sendData);
-    },
-    //错误信息展示3秒
-    restState() {
-      setTimeout(() => {
-        this.$store.dispatch("changeShowWrongMsg", false);
-      }, 3000);
+    close(){
+        
     }
   },
   mounted() {
-      
   },
   watch: {
-    showWrongMsg: "restState"
   }
 };
 </script>
@@ -77,33 +40,34 @@ export default {
 .modal{
     height: 100%;
     width: 100%;
-    position: absolute;
+    position: fixed;
     top:0;
     left: 0;
-    background: rgba(0,0,0,.3)
+    background: rgba(0,0,0,.3);
+    z-index: 200;
 }
 .modal .dialog{
-    height: 320px;
-    width: 280px;
+    width:420px;
     position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
     border: 1px solid #e0e0e0;
     }
  .modal .dialog .header{
     height: 40px;
-    margin-bottom: 10px;
     background: #f8fafb;
     line-height: 40px;
     padding: 0 15px;
     border-bottom: 1px solid #e0e0e0;
 }
- .modal .dialog .heade .close-btn{
-     font-size: 40px;
+ .modal .dialog .header .close-btn{
+     font-size: 14px;
      color: #666666;
+     display: block;
+     float:right;
+     color: #999999;
+     text-decoration: none;
  }
 .modal .dialog .opt-bar{
     height: 60px;
@@ -115,8 +79,37 @@ export default {
     height: 220px;
     width: 100%;
     background: #ffffff;
-
+    padding: 20px;
+    box-sizing: border-box;
 }
+.modal .dialog .opt-bar {
+    text-align: right;
+    padding-right: 20px;
+}
+.modal .dialog .opt-bar .btn{
+    border-color: #448cff;
+    color: #fff;
+    background-color: #448cff;
+    padding: 0 20px;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    font-size: 14px;
+    text-decoration: none;
+}
+.modal .dialog .opt-bar .confirm{
+    border-color: #448cff;
+}
+.modal .dialog .opt-bar .cancel{
+    border-color: #dee6ee;
+    margin-left: 10px;
+}
+
+
 </style>
 
 

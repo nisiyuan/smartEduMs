@@ -21,7 +21,6 @@
 	         <p class="f-normal">本站所有资源均来自用户分享或战略合作平台流转而来，版权归原作者所有，如有侵犯版权，请立刻和本站联系并提供证据，本站将在三个工作日内处理。</p>
          </footer>
     </div>  
-    <modal></modal>
 </div>
  <!-- v-if="userType!=null"
 <div v-else class="nologin">
@@ -37,7 +36,6 @@
 import { mapGetters } from "vuex";
 import tree from"./tree/tree.vue";
 import maincontent from "./maincontent/maincontent";
-import modal from "./modal/modal";
 export default {
   name: "login",
   data() {
@@ -57,8 +55,7 @@ export default {
   },
   components:{
    tree,
-   maincontent,
-   modal
+   maincontent
   },
   methods: {
     openTree(){

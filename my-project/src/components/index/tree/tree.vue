@@ -22,6 +22,10 @@
                        <li class="module-item" @click="changeSection(2)">学员管理</li>
                        <li class="module-item" @click="changeSection(3)">成绩管理</li>
                     </ul>
+                     <modal>
+                         <div slot="title">{{title}}</div>
+                         <div slot="content">312321313</div>
+                     </modal>
                 </div>
                 
                
@@ -30,13 +34,17 @@
 
 <script>
 import { mapGetters } from "vuex";
+import modal from "../modal/modal";
 
 export default {
   name: "tree",
   data() {
     return {
-     
+     title:"添加课程"
     };
+  },
+  components:{
+   modal
   },
   computed: {
     ...mapGetters({
