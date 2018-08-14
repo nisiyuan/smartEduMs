@@ -1,16 +1,16 @@
 <template>
- <div class="modal" >
-     <div class="dialog">
-         <div class="header">
-             <div class="title"><slot name="title"></slot></div>
-             <a href="javascript:;" class="close-btn">关闭</a>
+ <div class="modal" :class="this.extraClass" v-show="this.show">
+     <div class="dialog" >
+         <div class="header" >
+             <span class="title"><slot name="title"></slot></span>
+             <a href="javascript:;" class="close-btn" @click="this.close">关闭</a>
          </div>
          <div class="dlg-body">
              <slot name="content"></slot>
          </div>
          <div class="opt-bar">
-             <a href="javascript:;" class="btn confirm">确定</a>
-             <a href="javascript:;" class="btn cancel">取消</a>
+             <a href="javascript:;" class="btn confirm" @click="this.confirm">确定</a>
+             <a href="javascript:;" class="btn cancel" @click="this.cancel">取消</a>
          </div>
      </div>
  </div>
@@ -22,15 +22,28 @@ import { mapGetters } from "vuex";
 export default {
   name: "modal",
   data() {
+    return{
+
+    }
   },
+  props:["extraClass","show","closeCb","confirmCb","cancelCb"],
   computed: {
+    
+      
   },
   methods: {
     close(){
-        
+        this.closeCb&&typeof this.closeCb=="function"&&this.closeCb()
+    },
+    confirm(){
+       this.confirmCb&&typeof this.confirmCb=="function"&&this.confirmCb()
+    },
+    cancel(){
+      this.cancelCb&&typeof this.cancelCb=="function"&&this.cancelCb()
     }
   },
   mounted() {
+      console.log(this.show)
   },
   watch: {
   }
@@ -60,6 +73,9 @@ export default {
     line-height: 40px;
     padding: 0 15px;
     border-bottom: 1px solid #e0e0e0;
+}
+.modal .dialog .header .title{
+    width: 100px;
 }
  .modal .dialog .header .close-btn{
      font-size: 14px;
