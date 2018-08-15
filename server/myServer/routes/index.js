@@ -5,6 +5,10 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+/* post home page. */
+router.post('/', function(req, res, next) {
+    res.render('index', { title: 'Express' });
+  });
 //ceshi
 var _mysql = require('mysql');
 var mysql = _mysql.createConnection({
@@ -191,13 +195,32 @@ router.get('/coursedetail',(req,res) => {
     }) 
 })
 
-// mysql.end(function(err){
-//     if(err){
-//         return;
-//     }
-//     console.log("close succeed")
-// })
-//ceshi
+// 添加课程信息
+router.post('/addcourse',(req,res) => {
+    var query = req.query;
+    // var _sql = "SELECT * from question_info Where courseid='"+query.courseId+"'";
+    var _sql = "INSERT INTO course_info (name) VALUES ("+query.name+")";
+
+
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0,
+            list:rows
+        }
+        res.send(data)
+    }) 
+})
 
 
 

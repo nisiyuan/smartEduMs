@@ -89,3 +89,26 @@ export const getCourseDetail = ({commit}, data) => {
     };
     serverApi.getHttpServer(serverConfig);
 }
+
+
+// 添加课程信息
+export const addCourse = ({commit}, data) => {
+
+    var serverConfig = {};
+    serverConfig.urls ="http://localhost:3000/addcourse",
+    serverConfig.params = data;
+    serverConfig.successcb = (res) => {
+      if(res.errcode == 0){
+        commit(types.GET_QUESTION_DATA,res.list)
+      }else{
+        // commit(types.CHANGE_WRONG_MSG,true);
+        // commit(types.SET_WORNG_MSG,res.errmsg);
+      }
+    };
+    serverConfig.errorcb = (error) => {
+        // commit(types.CHANGE_WRONG_MSG,true);
+        // commit(types.SET_WORNG_MSG,"登录失败，请稍后再试");
+        // console.log("登录失败");
+    };
+    serverApi.postHttpServer(serverConfig);
+}

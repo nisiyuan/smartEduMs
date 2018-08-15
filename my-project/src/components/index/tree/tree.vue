@@ -11,8 +11,8 @@
                                 <li v-for="(item) in list" :key="item.id" class="course-item">
                                   <span class="name" @click="showCourseDetail(item.id)">{{item.name}}</span>
                                   <span class="opt-bar"> 
-                                    <span class="btn pdate">修改</span>
-                                    <span class="btn update">删除</span>
+                                    <span class="btn pdate" @click="updateCourse(item)">修改</span>
+                                    <span class="btn update" @click="deleteCourse(item)" >删除</span>
                                     </span>
                                 </li>
                                 <li class="course-item addcourse" @click="this.addCourse">添加课程   +</li>
@@ -23,7 +23,7 @@
                        <li class="module-item" @click="changeSection(3)">成绩管理</li>
                     </ul>
                      <modal  extraClass="treeDlg" :show="showAdd" :closeCb="this.closeCb" :confirmCb="this.confirmCb" :cancelCb="this.cancelCb">
-                         <span slot="title">{{title}}</span>
+                         <span slot="title">添加课程</span>
                          <div slot="content">
                              <div class="add-name">
                              <span class="static-tip">课程名:</span><input type="text" class="name" ref="courseName" placeholder="请输入课程名">
@@ -33,10 +33,26 @@
                              </div>
                          </div>
                      </modal>
-                </div>
-                
-               
 
+                      <modal  extraClass="treeDlg" :show="showUpdate" :closeCb="this.closeUCb" :confirmCb="this.confirmUCb" :cancelCb="this.cancelUCb">
+                         <span slot="title">修改课程名</span>
+                         <div slot="content">
+                             <div class="add-name">
+                             <span class="static-tip">课程名:</span><input type="text" class="name" ref="courseNameN" placeholder="请输入课程名">
+                             </div>
+                             <div class="tip" v-show="showTip">
+                                 <span class="tip-info">课程名不能为空！</span>
+                             </div>
+                         </div>
+                     </modal>
+
+                      <modal  extraClass="treeDlg delete" :show="showDelete" :closeCb="this.closeDCb" :confirmCb="this.confirmDCb" :cancelCb="this.cancelDCb">
+                         <span slot="title">删除课程</span>
+                         <div slot="content">
+                             确定删除课程？
+                         </div>
+                     </modal>
+                </div>
 </template>
 
 <style >
@@ -60,7 +76,10 @@
   .treeDlg.modal .dialog div.dlg-body{
       height: 100px;
   }
-
+  .treeDlg.delete .dlg-body  {
+    text-align: center;
+    line-height: 55px;
+    }
 </style>
 
 
@@ -72,9 +91,10 @@ export default {
   name: "tree",
   data() {
     return {
-     title:"添加课程",
      showAdd:false,
-     showTip:false
+     showTip:false,
+     showUpdate:false,
+     showDelete:false
     };
   },
   components:{
@@ -106,23 +126,57 @@ export default {
         this.showAdd=true;
     },
     closeCb(){
-         this.clearDlg();
+         this.clearDlg("showAdd");
     },
     confirmCb(){
         const courseName=this.$refs.courseName.value.trim();
         if(courseName){
-           this.clearDlg();
+            let param={name:courseName}
+            this.$store.dispatch("addCourse",param);
+           this.clearDlg("showAdd");
         }else{
            this.showTip=true;
         }
     },
     cancelCb(){
-      this.clearDlg();
+      this.clearDlg("showAdd");
     },
-    clearDlg(){
-        this.showAdd=false;
+    clearDlg(type){
+        this[type]=false;
         this.showTip=false;
         this.$refs.courseName.value="";
+    },
+    updateCourse(item){
+        this.showUpdate=true;
+        this.$refs.courseNameN.value=item.name;
+        // this.$refs.courseNameN.focus;
+    },
+    closeUCb(){
+         this.clearDlg("showUpdate");
+    },
+    confirmUCb(){
+        const courseName=this.$refs.courseName.value.trim();
+        if(courseName){
+
+           this.clearDlg("showUpdate");
+        }else{
+           this.showTip=true;
+        }
+    },
+    cancelUCb(){
+      this.clearDlg("showUpdate");
+    },
+    deleteCourse(item){
+        this.showDelete=true;
+    },
+    closeDCb(){
+         this.clearDlg("showDelete");
+    },
+    confirmDCb(){
+        this.clearDlg("showDelete");
+    },
+    cancelDCb(){
+      this.clearDlg("showDelete");
     }
 
 
