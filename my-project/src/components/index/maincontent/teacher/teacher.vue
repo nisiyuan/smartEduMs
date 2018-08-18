@@ -120,7 +120,8 @@ export default {
     ...mapGetters({
       list:"getSectionData"
     })
-  }, components:{
+  },
+   components:{
    modal
   },
   methods: {
@@ -133,7 +134,6 @@ export default {
     confirmCb(){
         const name=this.$refs.name.value.trim();
         const zone=this.$refs.zone.value.trim();
-        const account=this.$refs.account.value.trim();
         const tel=this.$refs.tel.value.trim();
         this.nameTip=!name;
         this.zoneTip=!zone;

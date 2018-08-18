@@ -176,3 +176,51 @@ export const updTeacher = ({commit}, data) => {
     };
     serverApi.postHttpServer(serverConfig);
 }
+
+
+
+//添加学生
+export const addStu = ({commit}, data) => {
+    var serverConfig = {};
+    let me=this;
+    serverConfig.urls ="http://localhost:3000/addstu",
+    serverConfig.params = data;
+    serverConfig.successcb = (res) => {
+      if(res.errcode == 0){
+        
+      }
+    };
+    serverConfig.errorcb = (error) => {
+    };
+    serverApi.postHttpServer(serverConfig);
+}
+//删除学生
+export const deleStu = ({commit}, data) => {
+    var serverConfig = {};
+    let me=this;
+    serverConfig.urls ="http://localhost:3000/deletestu",
+    serverConfig.params = data;
+    serverConfig.successcb = (res) => {
+      if(res.errcode == 0){
+        
+      }
+    };
+    serverConfig.errorcb = (error) => {
+    };
+    serverApi.postHttpServer(serverConfig);
+}
+//修改学生
+export const updStu = ({commit}, data) => {
+    var serverConfig = {};
+    let me=this;
+    serverConfig.urls ="http://localhost:3000/updstu",
+    serverConfig.params = data;
+    serverConfig.successcb = (res) => {
+      if(res.errcode == 0){
+        
+      }
+    };
+    serverConfig.errorcb = (error) => {
+    };
+    serverApi.postHttpServer(serverConfig);
+}

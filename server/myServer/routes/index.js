@@ -278,7 +278,7 @@ router.post('/updcourse',(req,res) => {
 router.post('/addteacher',(req,res) => {
     var query = req.body;
     console.log("fff",query)
-    var _sql = "INSERT INTO user_info (name,school,contact) VALUES ('"+query.name+"','"+query.school+"','"+contact.tel+"')";
+    var _sql = "INSERT INTO user_info (name,school,contact) VALUES ('"+query.name+"','"+query.school+"','"+query.contact+"')";
 
     mysql.query(_sql,function(err,rows){
         console.log(rows)
@@ -348,5 +348,91 @@ router.post('/updteacher',(req,res) => {
         res.send(data)
     }) 
 })
+
+
+// 添加学生信息
+router.post('/addstu',(req,res) => {
+    var query = req.body;
+    console.log("fff",query)
+    var _sql = "INSERT INTO stu_info (name,school,contact) VALUES ('"+query.name+"','"+query.school+"','"+query.contact+"')";
+
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0
+        }
+        res.send(data)
+    }) 
+})
+
+
+// 删除学生信息
+router.post('/deletestu',(req,res) => {
+    var query = req.body;
+    var _sql = "delete from stu_info where id="+query.id+"";
+
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0
+        }
+        res.send(data)
+    }) 
+})
+
+// 修改学生信息
+router.post('/updstu',(req,res) => {
+    var query = req.body;
+    var _sql = "UPDATE stu_info SET name='"+query.name+"',school='"+query.school+"',contact='"+query.contact+"'  WHERE id="+query.id+"";
+
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0
+        }
+        res.send(data)
+    }) 
+})
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
