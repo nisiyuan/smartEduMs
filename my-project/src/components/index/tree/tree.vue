@@ -80,6 +80,13 @@
     text-align: center;
     line-height: 55px;
     }
+
+ .teacherDlg.modal .dialog div.dlg-body{
+      height: auto;
+  }   
+
+
+
 </style>
 
 

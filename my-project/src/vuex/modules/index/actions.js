@@ -99,9 +99,6 @@ export const addCourse = ({commit}, data) => {
     };
     serverApi.postHttpServer(serverConfig);
 }
-
-
-
 // 删除课程信息
 export const delCourse = ({commit}, data) => {
     var serverConfig = {};
@@ -134,3 +131,48 @@ export const updCourse = ({commit}, data) => {
     serverApi.postHttpServer(serverConfig);
 }
 
+//添加教师
+export const addTeacher = ({commit}, data) => {
+    var serverConfig = {};
+    let me=this;
+    serverConfig.urls ="http://localhost:3000/addteacher",
+    serverConfig.params = data;
+    serverConfig.successcb = (res) => {
+      if(res.errcode == 0){
+        
+      }
+    };
+    serverConfig.errorcb = (error) => {
+    };
+    serverApi.postHttpServer(serverConfig);
+}
+//删除教师
+export const deleTeacher = ({commit}, data) => {
+    var serverConfig = {};
+    let me=this;
+    serverConfig.urls ="http://localhost:3000/deleteacher",
+    serverConfig.params = data;
+    serverConfig.successcb = (res) => {
+      if(res.errcode == 0){
+        
+      }
+    };
+    serverConfig.errorcb = (error) => {
+    };
+    serverApi.postHttpServer(serverConfig);
+}
+//修改教师
+export const updTeacher = ({commit}, data) => {
+    var serverConfig = {};
+    let me=this;
+    serverConfig.urls ="http://localhost:3000/updteacher",
+    serverConfig.params = data;
+    serverConfig.successcb = (res) => {
+      if(res.errcode == 0){
+        
+      }
+    };
+    serverConfig.errorcb = (error) => {
+    };
+    serverApi.postHttpServer(serverConfig);
+}
