@@ -33,14 +33,11 @@ export const getSectionData = ({commit}, data) => {
       if(res.errcode == 0){
         commit(types.GET_SECTION_DATA,res.list)
       }else{
-        // commit(types.CHANGE_WRONG_MSG,true);
-        // commit(types.SET_WORNG_MSG,res.errmsg);
+      
       }
     };
     serverConfig.errorcb = (error) => {
-        // commit(types.CHANGE_WRONG_MSG,true);
-        // commit(types.SET_WORNG_MSG,"登录失败，请稍后再试");
-        // console.log("登录失败");
+     
     };
     serverApi.getHttpServer(serverConfig);
 }
@@ -56,14 +53,11 @@ export const getTreeData = ({commit}, data) => {
       if(res.errcode == 0){
         commit(types.GET_TREE_DATA,res.list)
       }else{
-        // commit(types.CHANGE_WRONG_MSG,true);
-        // commit(types.SET_WORNG_MSG,res.errmsg);
+     
       }
     };
     serverConfig.errorcb = (error) => {
-        // commit(types.CHANGE_WRONG_MSG,true);
-        // commit(types.SET_WORNG_MSG,"登录失败，请稍后再试");
-        // console.log("登录失败");
+      
     };
     serverApi.getHttpServer(serverConfig);
 }
@@ -78,14 +72,11 @@ export const getCourseDetail = ({commit}, data) => {
       if(res.errcode == 0){
         commit(types.GET_QUESTION_DATA,res.list)
       }else{
-        // commit(types.CHANGE_WRONG_MSG,true);
-        // commit(types.SET_WORNG_MSG,res.errmsg);
+        
       }
     };
     serverConfig.errorcb = (error) => {
-        // commit(types.CHANGE_WRONG_MSG,true);
-        // commit(types.SET_WORNG_MSG,"登录失败，请稍后再试");
-        // console.log("登录失败");
+    
     };
     serverApi.getHttpServer(serverConfig);
 }
@@ -93,22 +84,53 @@ export const getCourseDetail = ({commit}, data) => {
 
 // 添加课程信息
 export const addCourse = ({commit}, data) => {
-
     var serverConfig = {};
     serverConfig.urls ="http://localhost:3000/addcourse",
     serverConfig.params = data;
     serverConfig.successcb = (res) => {
       if(res.errcode == 0){
-        commit(types.GET_QUESTION_DATA,res.list)
+        // commit(types.GET_QUESTION_DATA,res.list)
       }else{
-        // commit(types.CHANGE_WRONG_MSG,true);
-        // commit(types.SET_WORNG_MSG,res.errmsg);
+      
       }
     };
     serverConfig.errorcb = (error) => {
-        // commit(types.CHANGE_WRONG_MSG,true);
-        // commit(types.SET_WORNG_MSG,"登录失败，请稍后再试");
-        // console.log("登录失败");
+       
     };
     serverApi.postHttpServer(serverConfig);
 }
+
+
+
+// 删除课程信息
+export const delCourse = ({commit}, data) => {
+    var serverConfig = {};
+    serverConfig.urls ="http://localhost:3000/delecourse",
+    serverConfig.params = data;
+    serverConfig.successcb = (res) => {
+      if(res.errcode == 0){
+        // commit(types.GET_QUESTION_DATA,res.list)
+      }else{
+       
+      }
+    };
+    serverConfig.errorcb = (error) => {
+    };
+    serverApi.postHttpServer(serverConfig);
+}
+// 修改课程信息
+export const updCourse = ({commit}, data) => {
+    var serverConfig = {};
+    let me=this;
+    serverConfig.urls ="http://localhost:3000/updcourse",
+    serverConfig.params = data;
+    serverConfig.successcb = (res) => {
+      if(res.errcode == 0){
+        
+      }
+    };
+    serverConfig.errorcb = (error) => {
+    };
+    serverApi.postHttpServer(serverConfig);
+}
+

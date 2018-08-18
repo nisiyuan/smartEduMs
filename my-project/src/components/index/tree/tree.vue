@@ -94,7 +94,8 @@ export default {
      showAdd:false,
      showTip:false,
      showUpdate:false,
-     showDelete:false
+     showDelete:false,
+     curCourseId:""
     };
   },
   components:{
@@ -150,14 +151,17 @@ export default {
         this.showUpdate=true;
         this.$refs.courseNameN.value=item.name;
         // this.$refs.courseNameN.focus;
+        this.curCourseId=item.id;
+
     },
     closeUCb(){
          this.clearDlg("showUpdate");
+         this.curCourseId="";
     },
     confirmUCb(){
-        const courseName=this.$refs.courseName.value.trim();
+        const courseName=this.$refs.courseNameN.value.trim();
         if(courseName){
-
+           this.$store.dispatch("updCourse",{id:this.curCourseId,name:courseName});    
            this.clearDlg("showUpdate");
         }else{
            this.showTip=true;
@@ -165,18 +169,23 @@ export default {
     },
     cancelUCb(){
       this.clearDlg("showUpdate");
+      this.curCourseId="";
     },
     deleteCourse(item){
         this.showDelete=true;
+        this.curCourseId=item.id;
     },
     closeDCb(){
          this.clearDlg("showDelete");
+         this.curCourseId="";
     },
     confirmDCb(){
         this.clearDlg("showDelete");
+        this.$store.dispatch("delCourse",{id:this.curCourseId});
     },
     cancelDCb(){
       this.clearDlg("showDelete");
+      this.curCourseId=""
     }
 
 

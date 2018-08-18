@@ -197,13 +197,16 @@ router.get('/coursedetail',(req,res) => {
 
 // 添加课程信息
 router.post('/addcourse',(req,res) => {
-    var query = req.query;
+    var query = req.body;
+    // console.log("queryObj",req)
     // var _sql = "SELECT * from question_info Where courseid='"+query.courseId+"'";
-    var _sql = "INSERT INTO course_info (name) VALUES ("+query.name+")";
+    var _sql = "INSERT INTO course_info (name) VALUES ('"+query.name+"')";
 
 
     mysql.query(_sql,function(err,rows){
-        console.log(rows)
+        console.log("FDFDFFDFDFDDFF")
+ 
+        console.log("ADD",rows)
         var data = {
         }
         if(err){
@@ -221,7 +224,54 @@ router.post('/addcourse',(req,res) => {
         res.send(data)
     }) 
 })
+// 删除课程信息
+router.post('/delecourse',(req,res) => {
+    var query = req.body;
+    var _sql = "delete from course_info where id="+query.id+"";
+
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0
+        }
+        res.send(data)
+    }) 
+})
 
 
+// 修改课程信息
+router.post('/updcourse',(req,res) => {
+    var query = req.body;
+    console.log("fff",query)
+    var _sql = "UPDATE course_info SET name='"+query.name+"' WHERE id="+query.id+"";
+
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0
+        }
+        res.send(data)
+    }) 
+})
 
 module.exports = router;
