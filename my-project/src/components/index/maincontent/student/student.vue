@@ -194,20 +194,16 @@ export default {
         this.curTeacherId=item.id;
     },
     closeDCb(){
-         this.clearDlg("showDelete");
+         this.clearUpdDlg();
          this.curTeacherId="";
     },
     confirmDCb(){
-        this.clearDlg("showDelete");
         this.$store.dispatch("deleStu",{id:this.curTeacherId});
-    },
+        this.clearUpdDlg();
+   },
     cancelDCb(){
-      this.clearDlg("showDelete");
+      this.clearUpdDlg();
       this.curTeacherId=""
-    },
-    clearDlg(type){
-        this[type]=false;
-       
     }
   },
   mounted() {},

@@ -427,6 +427,80 @@ router.post('/updstu',(req,res) => {
 
 
 
+// 添加成绩
+router.post('/addscore',(req,res) => {
+    var query = req.body;
+    var _sql = "INSERT INTO score_info (name,school,account,score) VALUES ('"+query.name+"','"+query.school+"','"+query.account+"','"+query.score+"')";
+
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0
+        }
+        res.send(data)
+    }) 
+})
+
+
+// 删除成绩信息
+router.post('/deletescore',(req,res) => {
+    var query = req.body;
+    var _sql = "delete from score_info where id="+query.id+"";
+   console.log("fasfds",req.body)
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0
+        }
+        res.send(data)
+    }) 
+})
+
+// 修改成绩信息
+router.post('/updscore',(req,res) => {
+    var query = req.body;
+    var _sql = "UPDATE score_info SET name='"+query.name+"',school='"+query.school+"',account='"+query.account+"',score='"+query.score+"'  WHERE id="+query.id+"";
+
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0
+        }
+        res.send(data)
+    }) 
+})
+
+
 
 
 

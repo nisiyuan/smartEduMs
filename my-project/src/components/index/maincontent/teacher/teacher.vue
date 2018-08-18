@@ -137,7 +137,6 @@ export default {
         const tel=this.$refs.tel.value.trim();
         this.nameTip=!name;
         this.zoneTip=!zone;
-        this.accountTip=!account;
         this.tellTip=!tel;
         if((this.nameTip||this.zoneTip||this.accountTip||this.tellTip)){
            return
