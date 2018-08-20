@@ -139,7 +139,7 @@ export default {
         this.showAdd=true;
     },
     closeCb(){
-         this.clearDlg("showAdd");
+      this.clearUpdDlg()
     },
     confirmCb(){
         const name=this.$refs.name.value.trim();
@@ -165,10 +165,12 @@ export default {
        this.clearADlg();
     },
     cancelCb(){
-      this.clearDlg("showAdd");
+      this.clearUpdDlg()
     },
     clearADlg(){
         this.showAdd=false;
+        this.showUpdate=false;
+        this.showDelete=false;
         this.nameTip=false;
         this.zoneTip=false;
         this.tellTip=false;

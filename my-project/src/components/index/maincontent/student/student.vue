@@ -122,7 +122,7 @@ export default {
         this.showAdd=true;
     },
     closeCb(){
-         this.clearDlg("showAdd");
+      this.clearUpdDlg()
     },
     confirmCb(){
         const name=this.$refs.name.value.trim();
@@ -143,7 +143,7 @@ export default {
         } 
     },
     cancelCb(){
-      this.clearDlg("showAdd");
+      this.clearUpdDlg()
     },
     updateCourse(item){
         this.showUpdate=true;
@@ -182,6 +182,8 @@ export default {
     },
     clearUpdDlg(){
       this.showUpdate=false;  
+      this.showDelete=false;
+      this.showAdd=false;
       this.nameTip=false;
       this.zoneTip=false;
       this.telTip=false;
