@@ -1,6 +1,6 @@
 <template>
   <div class="right-content course-detail">
-                      <div class="con-header">课程详情 <span class="opt-bar add-course">添加题目</span></div>
+                      <div class="con-header">课程详情 <span class="opt-bar add-course">添加简答题</span><span class="opt-bar add-course">添加选择题</span></div>
                       <ul v-if="list.length" class="con-list test-list">
                         <li v-for="(item,index) in list" :key="item.id" class="item test">
                           <a href="javascript:;" class="show-detail">
@@ -15,88 +15,154 @@
                       <div v-else class="no-question">
                           没有题目，点击右上角，添加题目~
                       </div>
-
-
-                   
                       
-                      <modal  extraClass="teacherDlg" :show="showAdd" :closeCb="this.closeCb" :confirmCb="this.confirmCb" :cancelCb="this.cancelCb">
-                         <span slot="title">添加培训师</span>
+                      <modal  extraClass="teacherDlg" :show="showAddAns" :closeCb="this.closeCb" :confirmCb="this.confirmCb" :cancelCb="this.cancelCb">
+                         <span slot="title">添加简单题</span>
                          <div slot="content">
-                             <div class="type-choose">
-                                 <div class="btn sec answer">简答题</div>
-                                 <div class="btn sec choose">选择题</div>
-                             </div>
-                             <div class="option-question">
-                              <div class="add-name">
-                             <span class="static-tip">姓名:</span><input type="text" class="name" ref="name" placeholder="请输入姓名">
+                           
+                              <div class="add-name ans-body">
+                                  <span class="static-tip">题干:</span>
+                                  <textarea type="text" class="name" ref="name" placeholder="请输入题干"></textarea>
                             
-                             <div class="tip" v-show="nameTip">
-                                 <span class="tip-info">姓名不能为空！</span>
-                             </div>
-                             </div>
-            
-                             <div class="add-name">
-                             <span class="static-tip">校区:</span><input type="text" class="name" ref="zone" placeholder="请输入校区名">
-                              <div class="tip" v-show="zoneTip">
-                                 <span class="tip-info">校区不能为空！</span>
-                             </div>
-                             </div>
-                            
-                              <div class="add-name">
-                               <span class="static-tip">账号:</span><input type="text" class="name" ref="tel" placeholder="请输入账号">
-                               <div class="tip" v-show="tellTip">
-                                 <span class="tip-info">账号不能为空！</span>
-                               </div>
-                              </div>
-
-                              <div class="add-name">
-                               <span class="static-tip">分数:</span><input type="text" class="name" ref="score" placeholder="请输入分数">
-                               <div class="tip" v-show="tellTip">
-                                 <span class="tip-info">分数不能为空！</span>
-                               </div>
-                              </div>
+                                  <div class="tip" v-show="nameTip">
+                                     <span class="tip-info">题干不能为空！</span>
+                                  </div>
                              </div>
 
-                             <div class="answer-question">
-
+                              <div class="add-name ans-answer">
+                                  <span class="static-tip">答案:</span>
+                                  <textarea type="text" class="name" ref="name" placeholder="请输入答案"></textarea>
                              </div>
-                             
+
+                              <div class="add-name ans-analysis">
+                                  <span class="static-tip">解析:</span>
+                                  <textarea type="text" class="name" ref="name" placeholder="请输入解析"></textarea>
+                             </div>
                          </div>
                      </modal>
 
-                      <modal  extraClass="teacherDlg" :show="showUpdate" :closeCb="this.closeUCb" :confirmCb="this.confirmUCb" :cancelCb="this.cancelUCb">
-                         <span slot="title">信息修改</span>
+                      <modal  extraClass="teacherDlg" :show="showUpdateAns" :closeCb="this.closeUCb" :confirmCb="this.confirmUCb" :cancelCb="this.cancelUCb">
+                         <span slot="title">修改简答题</span>
                          <div slot="content">
-                             <div class="add-name">
-                             <span class="static-tip">姓名:</span><input type="text" class="name" ref="nameN" placeholder="请输入姓名">
+                
+                              <div class="add-name ans-body">
+                                  <span class="static-tip">题干:</span>
+                                  <textarea type="text" class="name" ref="name" placeholder="请输入题干"></textarea>
                             
-                             <div class="tip" v-show="nameTip">
-                                 <span class="tip-info">姓名不能为空！</span>
+                                  <div class="tip" v-show="nameTip">
+                                     <span class="tip-info">题干不能为空！</span>
+                                  </div>
                              </div>
-                             </div>
-            
-                             <div class="add-name">
-                             <span class="static-tip">校区:</span><input type="text" class="name" ref="zoneN" placeholder="请输入校区名">
-                              <div class="tip" v-show="zoneTip">
-                                 <span class="tip-info">校区不能为空！</span>
-                             </div>
-                             </div>
-                            
-                              <div class="add-name">
-                               <span class="static-tip">账号:</span><input type="text" class="name" ref="telN" placeholder="请输入账号">
-                               <div class="tip" v-show="tellTip">
-                                 <span class="tip-info">账号不能为空！</span>
-                               </div>
-                              </div>
 
-                              <div class="add-name">
-                               <span class="static-tip">分数:</span><input type="text" class="name" ref="scoreN" placeholder="请输入分数">
-                               <div class="tip" v-show="tellTip">
-                                 <span class="tip-info">分数不能为空！</span>
-                               </div>
-                              </div>
+                              <div class="add-name ans-answer">
+                                  <span class="static-tip">答案:</span>
+                                  <textarea type="text" class="name" ref="name" placeholder="请输入答案"></textarea>
+                             </div>
+
+                              <div class="add-name ans-analysis">
+                                  <span class="static-tip">解析:</span>
+                                  <textarea type="text" class="name" ref="name" placeholder="请输入解析"></textarea>
+                             </div>
                          </div>
                      </modal>
+
+                     
+                      <modal  extraClass="teacherDlg  opt-question-wrap" :show="showAddOpt" :closeCb="this.closeUCb" :confirmCb="this.confirmUCb" :cancelCb="this.cancelUCb">
+                         <span slot="title">添加选择题</span>
+                         <div slot="content" class="dlg-real-body">
+                
+                              <div class="add-name ans-body">
+                                  <span class="static-tip">题干:</span>
+                                  <textarea type="text" class="name" ref="name" placeholder="请输入题干"></textarea>
+                            
+                                  <div class="tip" v-show="nameTip">
+                                     <span class="tip-info">题干不能为空！</span>
+                                  </div>
+                             </div>
+
+                              <div class="add-name ans-answer">
+                                  <span class="static-tip">选项:</span>
+                                  <ul class="options">
+                                      <li class="option">
+                                          <span>A:</span>
+                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                      </li>
+                                       <li class="option">
+                                          <span>B:</span>
+                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                      </li>
+                                       <li class="option">
+                                          <span>C:</span>
+                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                      </li>
+                                       <li class="option">
+                                          <span>D:</span>
+                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                      </li>
+                                  </ul>
+                             </div>
+
+                            <div class="add-name opt-answer">
+                                  <span class="static-tip">答案:</span>
+                                  <textarea type="text" class="name" ref="name" placeholder="请输入答案"></textarea>
+                             </div>
+
+                              <div class="add-name ans-analysis">
+                                  <span class="static-tip">解析:</span>
+                                  <textarea type="text" class="name" ref="name" placeholder="请输入解析"></textarea>
+                             </div>
+                         </div>
+                     </modal>
+                     
+
+                     
+                      <modal  extraClass="teacherDlg opt-question-wrap" :show="showUpdateAns" :closeCb="this.closeUCb" :confirmCb="this.confirmUCb" :cancelCb="this.cancelUCb">
+                         <span slot="title">修改选择题</span>
+                         <div slot="content">
+                
+                              <div class="add-name ans-body">
+                                  <span class="static-tip">题干:</span>
+                                  <textarea type="text" class="name" ref="name" placeholder="请输入题干"></textarea>
+                            
+                                  <div class="tip" v-show="nameTip">
+                                     <span class="tip-info">题干不能为空！</span>
+                                  </div>
+                             </div>
+
+                              <div class="add-name ans-answer">
+                                  <span class="static-tip">选项:</span>
+                                  <ul class="options">
+                                      <li class="option">
+                                          <span>A:</span>
+                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                      </li>
+                                       <li class="option">
+                                          <span>B:</span>
+                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                      </li>
+                                       <li class="option">
+                                          <span>C:</span>
+                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                      </li>
+                                       <li class="option">
+                                          <span>D:</span>
+                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                      </li>
+                                  </ul>
+                             </div>
+                             <div class="add-name opt-answer update">
+                                  <span class="static-tip">答案:</span>
+                                  <textarea type="text" class="name" ref="name" placeholder="请输入答案"></textarea>
+                             </div>
+                              <div class="add-name ans-analysis">
+                                  <span class="static-tip">解析:</span>
+                                  <textarea type="text" class="name" ref="name" placeholder="请输入解析"></textarea>
+                             </div>
+                         </div>
+                     </modal>
+
+
+
 
                       <modal  extraClass="treeDlg delete" :show="showDelete" :closeCb="this.closeDCb" :confirmCb="this.confirmDCb" :cancelCb="this.cancelDCb">
                          <span slot="title">删除成绩</span>
@@ -110,6 +176,9 @@
 
 
 <style scoped>
+.opt-bar{
+    margin-left: 20px;
+}
 .sec{
   float:right;
 }
@@ -136,6 +205,38 @@
   color: #fff;
  background-color: #448cff;
 }
+.add-name .static-tip{
+    display: block;
+    margin: 0;
+}
+.add-name .name{
+    width: 375px;
+    height: 100px;
+}
+.add-name .options .option{
+    margin-bottom: 5px;
+}
+.add-name .options .option .name{
+    width: 357px;
+    height: 40px;
+    vertical-align: middle;
+}
+.add-name .options .option span{
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+}
+.opt-question-wrap .dialog{
+    width: 450px;
+}
+.opt-question-wrap .dlg-real-body{
+    height: 400px !important;
+    overflow-y: scroll;
+}
+.add-name .opt-answer .name{
+    height: 20px !important;
+}
 </style>
 
 
@@ -150,13 +251,15 @@ export default {
   name: "course",
   data() {
     return {
-     showAdd:true,
+     showAddAns:false,
+     showAddOpt:true,
      nameTip:false,
      zoneTip:false,
      accountTip:false,
      tellTip:false,
      scoreTip:false,
-     showUpdate:false,
+     showUpdateAns:false,
+     showUpdateOpt:false,
      showDelete:false,
      curTeacherId:"",
      curTeacher:null
