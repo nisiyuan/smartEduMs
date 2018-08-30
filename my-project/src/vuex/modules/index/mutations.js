@@ -19,8 +19,11 @@ const mutations = {
     },
     //课程信息
     [types.GET_QUESTION_DATA](state,data){
-        console.log(data)
         state.questionList =data;
+    },
+    //当前课程id
+    [types.CUR_COURSE_ID](state,data){
+        state.curCourseId =data;
     }
 
 

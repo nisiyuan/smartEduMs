@@ -65,6 +65,8 @@ export const getTreeData = ({commit}, data) => {
 // 获取课程信息
 export const getCourseDetail = ({commit}, data) => {
 
+    commit(types.CUR_COURSE_ID,data.courseId);
+
     var serverConfig = {};
     serverConfig.urls ="http://localhost:3000/coursedetail",
     serverConfig.params = data;

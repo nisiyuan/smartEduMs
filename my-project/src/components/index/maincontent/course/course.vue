@@ -1,6 +1,6 @@
 <template>
   <div class="right-content course-detail">
-                      <div class="con-header">课程详情 <span class="opt-bar add-course">添加简答题</span><span class="opt-bar add-course">添加选择题</span></div>
+                      <div class="con-header">课程详情 <span class="opt-bar add-course" @click="addAnsQue">添加简答题</span><span class="opt-bar add-course" @click="addOptQue">添加选择题</span></div>
                       <ul v-if="list.length" class="con-list test-list">
                         <li v-for="(item,index) in list" :key="item.id" class="item test">
                           <a href="javascript:;" class="show-detail">
@@ -15,28 +15,31 @@
                       <div v-else class="no-question">
                           没有题目，点击右上角，添加题目~
                       </div>
-                      
-                      <modal  extraClass="teacherDlg" :show="showAddAns" :closeCb="this.closeCb" :confirmCb="this.confirmCb" :cancelCb="this.cancelCb">
-                         <span slot="title">添加简单题</span>
+                      <!-- 简单题 -->
+                      <modal  extraClass="teacherDlg" :show="showAddAns" :closeCb="this.cancelAddAns" :confirmCb="this.confirmAddAns" :cancelCb="this.cancelAddAns">
+                         <span slot="title">添加简答题</span>
                          <div slot="content">
                            
                               <div class="add-name ans-body">
                                   <span class="static-tip">题干:</span>
-                                  <textarea type="text" class="name" ref="name" placeholder="请输入题干"></textarea>
+                                  <textarea type="text" class="name" ref="ansbody" placeholder="请输入题干"></textarea>
                             
-                                  <div class="tip" v-show="nameTip">
+                                  <div class="tip" v-show="ansBodyTip">
                                      <span class="tip-info">题干不能为空！</span>
                                   </div>
                              </div>
 
                               <div class="add-name ans-answer">
                                   <span class="static-tip">答案:</span>
-                                  <textarea type="text" class="name" ref="name" placeholder="请输入答案"></textarea>
+                                  <textarea type="text" class="name" ref="ansans" placeholder="请输入答案"></textarea>
+                                  <div class="tip" v-show="ansAnsTip">
+                                     <span class="tip-info">答案不能为空！</span>
+                                  </div>
                              </div>
 
                               <div class="add-name ans-analysis">
                                   <span class="static-tip">解析:</span>
-                                  <textarea type="text" class="name" ref="name" placeholder="请输入解析"></textarea>
+                                  <textarea type="text" class="name" ref="ansany" placeholder="请输入解析"></textarea>
                              </div>
                          </div>
                      </modal>
@@ -66,8 +69,8 @@
                          </div>
                      </modal>
 
-                     
-                      <modal  extraClass="teacherDlg  opt-question-wrap" :show="showAddOpt" :closeCb="this.closeUCb" :confirmCb="this.confirmUCb" :cancelCb="this.cancelUCb">
+                     <!-- 选择题 -->
+                      <modal  extraClass="teacherDlg  opt-question-wrap" id="opt-question-wrap" :show="showAddOpt" :closeCb="this.cancelAddAns" :confirmCb="this.confirmAddAns" :cancelCb="this.cancelAddAns">
                          <span slot="title">添加选择题</span>
                          <div slot="content" class="dlg-real-body">
                 
@@ -115,10 +118,10 @@
                      </modal>
                      
 
-                     
-                      <modal  extraClass="teacherDlg opt-question-wrap" :show="showUpdateAns" :closeCb="this.closeUCb" :confirmCb="this.confirmUCb" :cancelCb="this.cancelUCb">
+                    <!--删除题 -->
+                     <modal  extraClass="teacherDlg  opt-question-wrap " id="upd-opt-question-wrap" :show="showUpdateOpt" :closeCb="this.closeUCb" :confirmCb="this.confirmUCb" :cancelCb="this.cancelUCb">
                          <span slot="title">修改选择题</span>
-                         <div slot="content">
+                         <div slot="content" class="dlg-real-body">
                 
                               <div class="add-name ans-body">
                                   <span class="static-tip">题干:</span>
@@ -150,18 +153,18 @@
                                       </li>
                                   </ul>
                              </div>
-                             <div class="add-name opt-answer update">
+
+                            <div class="add-name opt-answer">
                                   <span class="static-tip">答案:</span>
                                   <textarea type="text" class="name" ref="name" placeholder="请输入答案"></textarea>
                              </div>
+
                               <div class="add-name ans-analysis">
                                   <span class="static-tip">解析:</span>
                                   <textarea type="text" class="name" ref="name" placeholder="请输入解析"></textarea>
                              </div>
                          </div>
                      </modal>
-
-
 
 
                       <modal  extraClass="treeDlg delete" :show="showDelete" :closeCb="this.closeDCb" :confirmCb="this.confirmDCb" :cancelCb="this.cancelDCb">
@@ -227,8 +230,11 @@
     line-height: 40px;
     vertical-align: middle;
 }
+#opt-question-wrap {
+    /* background: red; */
+}
 .opt-question-wrap .dialog{
-    width: 450px;
+    width: 470px !important;
 }
 .opt-question-wrap .dlg-real-body{
     height: 400px !important;
@@ -252,7 +258,9 @@ export default {
   data() {
     return {
      showAddAns:false,
-     showAddOpt:true,
+     showAddOpt:false,
+     ansBodyTip:false,
+     ansAnsTip:false,
      nameTip:false,
      zoneTip:false,
      accountTip:false,
@@ -270,13 +278,47 @@ export default {
   },
   computed: {
     ...mapGetters({
-      list: "getQuestionList"
+      list: "getQuestionList",
+      curCourseId:"getCurCourseId"
     })
   },
   methods: {
-    addCourse(){
-        this.showAdd=true;
+    addAnsQue(){
+        this.showAddAns=true;
     },
+    addOptQue(){
+        this.showAddOpt=true;
+    },
+    confirmAddAns(){
+        let body=this.$refs.ansbody.value;   
+        let answer=this.$refs.ansans.value;
+        let analysis=this.$refs.ansany.value;   
+        
+        this.ansBodyTip=!body;
+        this.ansAnsTip=!answer;
+        
+        if(this.ansBodyTip||this.ansAnsTip){
+            return;
+        }else{
+              let param={
+                  body:body,
+                  answer:answer,
+                  analysis:analysis,
+                  courseId:this.curCourseId
+              }   
+              console.log(param)
+        }
+ 
+        this.showAddAns=false;
+    },
+     cancelAddAns(){
+      
+        this.showAddAns=false;
+    },
+    
+
+
+
     closeCb(){
       this.clearUpdDlg()
     },

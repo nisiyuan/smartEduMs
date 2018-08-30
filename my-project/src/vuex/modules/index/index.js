@@ -7,7 +7,8 @@ const state = {
   opened:false,      //树是否展开
   contentList:[],    //内容区数据
   treeList:[],       //课程目录树   
-  questionList:[]    //题目列表 
+  questionList:[],    //题目列表 
+  curCourseId:0
 }
 
 export default{
