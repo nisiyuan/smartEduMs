@@ -70,49 +70,59 @@
                      </modal>
 
                      <!-- 选择题 -->
-                      <modal  extraClass="teacherDlg  opt-question-wrap" id="opt-question-wrap" :show="showAddOpt" :closeCb="this.cancelAddAns" :confirmCb="this.confirmAddAns" :cancelCb="this.cancelAddAns">
+                      <modal  extraClass="teacherDlg  opt-question-wrap" id="opt-question-wrap" :show="showAddOpt" :closeCb="this.cancelAddOpt" :confirmCb="this.confirmAddOpt" :cancelCb="this.cancelAddOpt">
                          <span slot="title">添加选择题</span>
                          <div slot="content" class="dlg-real-body">
                 
                               <div class="add-name ans-body">
-                                  <span class="static-tip">题干:</span>
-                                  <textarea type="text" class="name" ref="name" placeholder="请输入题干"></textarea>
+                                  <span class="static-tip">题干:  
+                                      <div class="tip ans-tip" v-show="optBodyTip">
+                                        <span class="tip-info">题干不能为空！</span>
+                                      </div>
+                                  </span>
+                                  <textarea type="text" class="name" ref="optBody" placeholder="请输入题干"></textarea>
                             
-                                  <div class="tip" v-show="nameTip">
-                                     <span class="tip-info">题干不能为空！</span>
-                                  </div>
+                                
                              </div>
 
                               <div class="add-name ans-answer">
-                                  <span class="static-tip">选项:</span>
-                                  <ul class="options">
+                                  <span class="static-tip">选项:
+                                      <div class="tip ans-tip" v-show="optOptTip">
+                                        <span class="tip-info ">选项不能为空！</span>
+                                      </div>
+                                  </span>
+                                  <ul class="options" ref="optList">
                                       <li class="option">
                                           <span>A:</span>
-                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                          <textarea type="text" class="name"  placeholder="请输入选项"></textarea>
                                       </li>
                                        <li class="option">
                                           <span>B:</span>
-                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                          <textarea type="text" class="name"  placeholder="请输入选项"></textarea>
                                       </li>
                                        <li class="option">
                                           <span>C:</span>
-                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                          <textarea type="text" class="name"  placeholder="请输入选项"></textarea>
                                       </li>
                                        <li class="option">
                                           <span>D:</span>
-                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                          <textarea type="text" class="name"  placeholder="请输入选项"></textarea>
                                       </li>
                                   </ul>
                              </div>
 
                             <div class="add-name opt-answer">
-                                  <span class="static-tip">答案:</span>
-                                  <textarea type="text" class="name" ref="name" placeholder="请输入答案"></textarea>
+                                  <span class="static-tip">答案:
+                                      <div class="tip ans-tip" v-show="optResTip">
+                                        <span class="tip-info">答案不能为空！</span>
+                                      </div>
+                                  </span>
+                                  <textarea type="text" class="name" ref="result" placeholder="请输入答案"></textarea>
                              </div>
 
                               <div class="add-name ans-analysis">
                                   <span class="static-tip">解析:</span>
-                                  <textarea type="text" class="name" ref="name" placeholder="请输入解析"></textarea>
+                                  <textarea type="text" class="name" ref="optAnaly" placeholder="请输入解析"></textarea>
                              </div>
                          </div>
                      </modal>
@@ -243,6 +253,9 @@
 .add-name .opt-answer .name{
     height: 20px !important;
 }
+.ans-tip{
+    margin:0 !important;
+}
 </style>
 
 
@@ -261,6 +274,11 @@ export default {
      showAddOpt:false,
      ansBodyTip:false,
      ansAnsTip:false,
+
+     optBodyTip:false,
+     optOptTip:false,
+     optResTip:false,
+
      nameTip:false,
      zoneTip:false,
      accountTip:false,
@@ -283,11 +301,9 @@ export default {
     })
   },
   methods: {
+    // 添加简答题  
     addAnsQue(){
         this.showAddAns=true;
-    },
-    addOptQue(){
-        this.showAddOpt=true;
     },
     confirmAddAns(){
         let body=this.$refs.ansbody.value;   
@@ -312,10 +328,57 @@ export default {
         this.showAddAns=false;
     },
      cancelAddAns(){
-      
         this.showAddAns=false;
     },
-    
+    // 添加选择题
+    addOptQue(){
+        this.showAddOpt=true;
+    },
+    getOptFlag(opt){
+     let flag=true;    
+     for(let i=0;i<opt.length;i++){
+         let cur=opt[i].getElementsByClassName("name")[0];
+         if(!cur.value){
+             flag=false;
+             break;
+         }
+     }
+     return flag;
+    },
+    getOptStr(opt){
+        let str=[];
+     for(let i=0;i<opt.length;i++){
+         let cur=opt[i].getElementsByClassName("name")[0].value;
+         str.push(cur);
+     }
+     return str.join("_");
+    },
+    confirmAddOpt(){
+        let body=this.$refs.optBody.value;  
+        let opt=this.$refs.optList.getElementsByClassName("option");
+        let res=this.$refs.result.value;   
+        let analysis=this.$refs.optAnaly.value;
+        
+        this.optBodyTip=!body;
+        this.optOptTip=!this.getOptFlag(opt);
+        this.optResTip=!res;
+        if(this.optBodyTip||this.optOptTip||this.optResTip){
+            return;
+        }else{
+              let param={
+                  body:body,
+                  opt:this.getOptStr(opt),
+                  answer:res,
+                  analysis:analysis
+              }   
+              console.log(param)
+        }
+ 
+        this.showAddOpt=false;
+    },
+     cancelAddOpt(){
+        this.showAddOpt=false;
+    },
 
 
 
