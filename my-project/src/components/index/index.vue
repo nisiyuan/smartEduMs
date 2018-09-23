@@ -5,7 +5,7 @@
            <header>
                <a href="/" class="logo">智慧教育培训管理系统</a>
        	        <div class="page-user-center">
-                      <a class="logout" href="javascipt:;"><i class="mr-5"></i>退出</a>        
+                      <a class="logout" href="javascipt:;" @click="loginOut"><i class="mr-5"></i>退出</a>        
                 </div>
           </header>    
      </div>
@@ -66,6 +66,9 @@ export default {
         user_id: data
       };
       this.$store.dispatch("getUserName", sendData);
+    },
+    loginOut(){
+      window.location.href="#/";
     },
 
     click() {

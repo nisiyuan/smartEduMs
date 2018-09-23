@@ -18,9 +18,9 @@
                                 <li class="course-item addcourse" @click="this.addCourse">添加课程   +</li>
                             </ul>
                            </li>
-                        <li class="module-item" @click="changeSection(1)">教师管理</li>
-                       <li class="module-item" @click="changeSection(2)">学员管理</li>
-                       <li class="module-item" @click="changeSection(3)">成绩管理</li>
+                        <li class="module-item" @click="changeSection(1)" v-if="utype">教师管理</li>
+                       <li class="module-item" @click="changeSection(2)" v-if="utype">学员管理</li>
+                       <li class="module-item" @click="changeSection(3)" v-if="utype">成绩管理</li>
                     </ul>
                      <modal  extraClass="treeDlg" :show="showAdd" :closeCb="this.closeCb" :confirmCb="this.confirmCb" :cancelCb="this.cancelCb">
                          <span slot="title">添加课程</span>
@@ -111,7 +111,8 @@ export default {
   computed: {
     ...mapGetters({
       list:"getTreeList",
-      opened:"getTreeStatus"
+      opened:"getTreeStatus",
+      utype:"getUserType"
     })
   },
   methods: {

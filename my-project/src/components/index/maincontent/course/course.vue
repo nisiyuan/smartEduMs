@@ -132,13 +132,6 @@
                       </modal>
 
 
-
-
-
-
-
-
-
                      <!-- 添加选择题 -->
                       <modal  extraClass="teacherDlg  opt-question-wrap" id="opt-question-wrap" :show="showAddOpt" :closeCb="this.cancelAddOpt" :confirmCb="this.confirmAddOpt" :cancelCb="this.cancelAddOpt">
                          <span slot="title">添加选择题</span>

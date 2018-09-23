@@ -139,7 +139,8 @@ export default {
                 school:zone,
                 contact:tel
             }
-            this.$store.dispatch("addStu",param)
+            this.$store.dispatch("addStu",param);
+             this.showAdd=false;
         } 
     },
     cancelCb(){

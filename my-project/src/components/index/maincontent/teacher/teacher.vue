@@ -147,6 +147,7 @@ export default {
                 contact:tel
             }
             this.$store.dispatch("addTeacher",param)
+                    this.showAdd=false;
         } 
     },
     cancelCb(){
