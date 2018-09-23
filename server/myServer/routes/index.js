@@ -548,6 +548,28 @@ router.post('/delquestion',(req,res) => {
         res.send(data)
     }) 
 })
+// 修改題目
+router.post('/updquestion',(req,res) => {
+    var query = req.body;
+    var _sql = "UPDATE question_info SET body='"+query.body+"',options='"+query.options+"',answer='"+query.answer+"',analysis='"+query.analysis+"'  WHERE id="+query.id+"";
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0
+        }
+        res.send(data)
+    }) 
+})
 
 
 

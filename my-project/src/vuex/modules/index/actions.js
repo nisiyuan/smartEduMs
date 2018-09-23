@@ -306,3 +306,18 @@ export const delQuestion = ({commit,dispatch}, data) => {
     };
     serverApi.postHttpServer(serverConfig);
 }
+//修改簡答題
+export const updQuestion = ({commit,dispatch}, data) => {
+    var serverConfig = {};
+    let me=this;
+    serverConfig.urls ="http://localhost:3000/updquestion",
+    serverConfig.params = data;
+    serverConfig.successcb = (res) => {
+      if(res.errcode == 0){
+        dispatch("getCourseDetail",{courseId:data.courseId});
+      }
+    };
+    serverConfig.errorcb = (error) => {
+    };
+    serverApi.postHttpServer(serverConfig);
+}

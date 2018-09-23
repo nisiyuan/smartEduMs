@@ -4,10 +4,10 @@
                       <ul v-if="list.length" class="con-list test-list">
                         <li v-for="(item,index) in list" :key="item.id" class="item test">
                           <a href="javascript:;" class="show-detail">
-                             <span class="index">{{index+1}}</span><span class="title">{{item.body}}</span>
+                             <span class="index">{{index+1}}</span><span class="type" style="font-size:12px; margin-right:20px;color:rgb(14, 25, 202);">{{item.type==2?"简答题":"选择题"}}</span><span class="title">{{item.body}}</span>
                           </a>
                           <span class="opt-bar">
-                            <span class="btn update" @click="updateQuestion(item.id)" >修改</span>
+                            <span class="btn update" @click="updateQuestion(item)" >修改</span>
                             <span class="btn delete" @click="deleteQuestion(item.id)">删除</span>
                           </span>
                         </li>
@@ -15,9 +15,9 @@
                       <div v-else class="no-question">
                           没有题目，点击右上角，添加题目~
                       </div>
-                      <!-- 简单题 -->
+                      <!-- 添加简单题 -->
                       <modal  extraClass="teacherDlg" :show="showAddAns" :closeCb="this.cancelAddAns" :confirmCb="this.confirmAddAns" :cancelCb="this.cancelAddAns">
-                         <span slot="title">添加简答题</span>
+                         <span slot="title" ref="optTitle">添加简答题</span>
                          <div slot="content">
                            
                               <div class="add-name ans-body">
@@ -42,7 +42,36 @@
                                   <textarea type="text" class="name" ref="ansany" placeholder="请输入解析"></textarea>
                              </div>
                          </div>
-                     </modal>
+                      </modal>
+
+                      <!-- 修改简单题 -->
+                      <modal  extraClass="teacherDlg" :show="showUpdAns" :closeCb="this.cancelUpdAns" :confirmCb="this.confirmUpdAns" :cancelCb="this.cancelUpdAns">
+                         <span slot="title" ref="optTitle">修改简答题</span>
+                         <div slot="content">
+                           
+                              <div class="add-name ans-body">
+                                  <span class="static-tip">题干:</span>
+                                  <textarea type="text" class="name" ref="ansbodyU" placeholder="请输入题干"></textarea>
+                            
+                                  <div class="tip" v-show="ansBodyTip">
+                                     <span class="tip-info">题干不能为空！</span>
+                                  </div>
+                             </div>
+
+                              <div class="add-name ans-answer">
+                                  <span class="static-tip">答案:</span>
+                                  <textarea type="text" class="name" ref="ansansU" placeholder="请输入答案"></textarea>
+                                  <div class="tip" v-show="ansAnsTip">
+                                     <span class="tip-info">答案不能为空！</span>
+                                  </div>
+                             </div>
+
+                              <div class="add-name ans-analysisU">
+                                  <span class="static-tip">解析:</span>
+                                  <textarea type="text" class="name" ref="ansanyU" placeholder="请输入解析"></textarea>
+                             </div>
+                         </div>
+                      </modal>
 
                       <modal  extraClass="teacherDlg" :show="showUpdateAns" :closeCb="this.closeUCb" :confirmCb="this.confirmUCb" :cancelCb="this.cancelUCb">
                          <span slot="title">修改简答题</span>
@@ -69,7 +98,7 @@
                          </div>
                      </modal>
 
-                     <!-- 选择题 -->
+                     <!-- 添加选择题 -->
                       <modal  extraClass="teacherDlg  opt-question-wrap" id="opt-question-wrap" :show="showAddOpt" :closeCb="this.cancelAddOpt" :confirmCb="this.confirmAddOpt" :cancelCb="this.cancelAddOpt">
                          <span slot="title">添加选择题</span>
                          <div slot="content" class="dlg-real-body">
@@ -128,50 +157,60 @@
                      </modal>
                      
 
-                    <!--删除题 -->
-                     <modal  extraClass="teacherDlg  opt-question-wrap " id="upd-opt-question-wrap" :show="showUpdateOpt" :closeCb="this.closeUCb" :confirmCb="this.confirmUCb" :cancelCb="this.cancelUCb">
+                    <!--修改選擇題 -->
+                     <modal  extraClass="teacherDlg  opt-question-wrap " id="upd-opt-question-wrap" :show="showUpdateOpt" :closeCb="this.cancelUpdAns" :confirmCb="this.confirmUpdAns" :cancelCb="this.cancelUpdAns">
                          <span slot="title">修改选择题</span>
-                         <div slot="content" class="dlg-real-body">
+                        <div slot="content" class="dlg-real-body">
                 
                               <div class="add-name ans-body">
-                                  <span class="static-tip">题干:</span>
-                                  <textarea type="text" class="name" ref="name" placeholder="请输入题干"></textarea>
+                                  <span class="static-tip">题干:  
+                                      <div class="tip ans-tip" v-show="optBodyTip">
+                                        <span class="tip-info">题干不能为空！</span>
+                                      </div>
+                                  </span>
+                                  <textarea type="text" class="name" ref="optBodyU" placeholder="请输入题干"></textarea>
                             
-                                  <div class="tip" v-show="nameTip">
-                                     <span class="tip-info">题干不能为空！</span>
-                                  </div>
+                                
                              </div>
 
                               <div class="add-name ans-answer">
-                                  <span class="static-tip">选项:</span>
-                                  <ul class="options">
+                                  <span class="static-tip">选项:
+                                      <div class="tip ans-tip" v-show="optOptTip">
+                                        <span class="tip-info ">选项不能为空！</span>
+                                      </div>
+                                  </span>
+                                  <ul class="options" ref="optListU">
                                       <li class="option">
                                           <span>A:</span>
-                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                          <textarea type="text" class="name"  placeholder="请输入选项"></textarea>
                                       </li>
                                        <li class="option">
                                           <span>B:</span>
-                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                          <textarea type="text" class="name"  placeholder="请输入选项"></textarea>
                                       </li>
                                        <li class="option">
                                           <span>C:</span>
-                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                          <textarea type="text" class="name"  placeholder="请输入选项"></textarea>
                                       </li>
                                        <li class="option">
                                           <span>D:</span>
-                                          <textarea type="text" class="name" ref="name" placeholder="请输入选项"></textarea>
+                                          <textarea type="text" class="name"  placeholder="请输入选项"></textarea>
                                       </li>
                                   </ul>
                              </div>
 
                             <div class="add-name opt-answer">
-                                  <span class="static-tip">答案:</span>
-                                  <textarea type="text" class="name" ref="name" placeholder="请输入答案"></textarea>
+                                  <span class="static-tip">答案:
+                                      <div class="tip ans-tip" v-show="optResTip">
+                                        <span class="tip-info">答案不能为空！</span>
+                                      </div>
+                                  </span>
+                                  <textarea type="text" class="name" ref="resultU" placeholder="请输入答案"></textarea>
                              </div>
 
                               <div class="add-name ans-analysis">
                                   <span class="static-tip">解析:</span>
-                                  <textarea type="text" class="name" ref="name" placeholder="请输入解析"></textarea>
+                                  <textarea type="text" class="name" ref="optAnalyU" placeholder="请输入解析"></textarea>
                              </div>
                          </div>
                      </modal>
@@ -282,6 +321,10 @@ export default {
      showDelete:false,
      curQueId:"",
 
+     showUpdAns:false,
+     queType:"",
+     showUpdateOpt:false,
+
 
      nameTip:false,
      zoneTip:false,
@@ -325,7 +368,7 @@ export default {
                   answer:answer,
                   analysis:analysis,
                   courseId:this.curCourseId,
-                  type:1
+                  type:2
               }   
              this.$store.dispatch("addQuestion",param)
         }
@@ -376,7 +419,7 @@ export default {
                   answer:res,
                   analysis:analysis,
                   courseId:this.curCourseId,
-                  type:2
+                  type:1
               }   
              this.$store.dispatch("addQuestion",param)
         }
@@ -393,7 +436,95 @@ export default {
       this.curQueId=id;
     },
 
+    // 修改題目
+    updateQuestion(item){
+     this.queType=item.type;
+     this.curQueId=item.id;
+     if(item.type==2){
+         this.showUpdAns=true;
+        //  簡答題信息回填
+         this.$refs.ansbodyU.value=item.body;
+         this.$refs.ansansU.value=item.answer;
+         this.$refs.ansanyU.value=item.analysis;
+     }else{
+         this.showUpdateOpt=true;
+        //  選擇題信息回填
+       this.$refs.optBodyU.value=item.body
+       let options=this.$refs.optListU.getElementsByClassName("option");
+       let opts=item.options.split("_");
 
+       for(let i=0;i<4;i++){
+           options[i].getElementsByClassName("name")[0].value=opts[i];
+       }
+
+       this.$refs.resultU.value=item.answer;   
+       this.$refs.optAnalyU.value=item.analysis;
+
+     }
+    },  
+    cancelUpdAns(){
+     if(this.queType==2){
+         this.showUpdAns=false;
+     }else{
+         this.showUpdateOpt=false;
+     }
+    },
+    confirmUpdAns(){
+        // 2 jiandati 
+      if(this.queType==2){
+        let body=this.$refs.ansbodyU.value;   
+        let answer=this.$refs.ansansU.value;
+        let analysis=this.$refs.ansanyU.value;   
+        
+        this.ansBodyTip=!body;
+        this.ansAnsTip=!answer;
+
+        if(this.ansBodyTip||this.ansAnsTip){
+            return;
+        }else{
+              let param={
+                  body:body,
+                  answer:answer,
+                  analysis:analysis,
+                  id:this.curQueId,
+                  courseId:this.curCourseId,
+                  type:1
+              }   
+             this.$store.dispatch("updQuestion",param);
+            this.showUpdAns=false;
+        }
+    }else{
+        let body=this.$refs.optBodyU.value;  
+        let opt=this.$refs.optListU.getElementsByClassName("option");
+        let res=this.$refs.resultU.value;   
+        let analysis=this.$refs.optAnalyU.value;
+        
+        this.optBodyTip=!body;
+        this.optOptTip=!this.getOptFlag(opt);
+        this.optResTip=!res;
+        if(this.optBodyTip||this.optOptTip||this.optResTip){
+            return;
+        }else{
+              let param={
+                  body:body,
+                  options:this.getOptStr(opt),
+                  answer:res,
+                  analysis:analysis,
+                  id:this.curQueId,
+                  courseId:this.curCourseId,
+                  type:2
+              }   
+             this.$store.dispatch("updQuestion",param)
+        }
+ 
+         this.showUpdateOpt=false;
+     }
+    }, 
+
+
+
+
+    
     closeDCb(){
          this.showDelete=false;  
          this.curQueId="";
@@ -406,10 +537,6 @@ export default {
       this.showDelete=false;
       this.curQueId="";
     },
-    //修改題目
-    updateQuestion(){
-
-    }, 
     closeCb(){
       this.clearUpdDlg()
     },
