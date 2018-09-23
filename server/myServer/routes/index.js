@@ -503,6 +503,51 @@ router.post('/updscore',(req,res) => {
 
 
 
+// 添加題目
+router.post('/addquestion',(req,res) => {
+    var query = req.body;
+    var _sql = "INSERT INTO question_info (body,options,answer,analysis,courseid,type) VALUES ('"+query.body+"','"+query.opt+"','"+query.answer+"','"+query.analysis+"','"+query.courseId+"','"+query.type+"')";
+
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0
+        }
+        res.send(data)
+    }) 
+})
+// 刪除題目
+router.post('/delquestion',(req,res) => {
+    var query = req.body;
+    var _sql = "delete from question_info where id="+query.id+"";
+    mysql.query(_sql,function(err,rows){
+        console.log(rows)
+        var data = {
+        }
+        if(err){
+            console.log(err)
+            data={
+                errcode: 10000,
+                errmsg:err
+            }
+            return
+        }
+        data={
+            errcode:0
+        }
+        res.send(data)
+    }) 
+})
 
 
 

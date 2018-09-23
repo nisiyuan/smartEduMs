@@ -274,3 +274,35 @@ export const updScore = ({commit,dispatch}, data) => {
     };
     serverApi.postHttpServer(serverConfig);
 }
+
+
+//添加题目
+export const addQuestion = ({commit,dispatch}, data) => {
+    var serverConfig = {};
+    let me=this;
+    serverConfig.urls ="http://localhost:3000/addquestion",
+    serverConfig.params = data;
+    serverConfig.successcb = (res) => {
+      if(res.errcode == 0){
+        dispatch("getCourseDetail",{courseId:data.courseId});
+      }
+    };
+    serverConfig.errorcb = (error) => {
+    };
+    serverApi.postHttpServer(serverConfig);
+}
+//刪除题目
+export const delQuestion = ({commit,dispatch}, data) => {
+    var serverConfig = {};
+    let me=this;
+    serverConfig.urls ="http://localhost:3000/delquestion",
+    serverConfig.params = data;
+    serverConfig.successcb = (res) => {
+      if(res.errcode == 0){
+        dispatch("getCourseDetail",{courseId:data.courseId});
+      }
+    };
+    serverConfig.errorcb = (error) => {
+    };
+    serverApi.postHttpServer(serverConfig);
+}

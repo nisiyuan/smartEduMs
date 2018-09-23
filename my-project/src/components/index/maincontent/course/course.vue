@@ -7,8 +7,8 @@
                              <span class="index">{{index+1}}</span><span class="title">{{item.body}}</span>
                           </a>
                           <span class="opt-bar">
-                            <span class="btn update">修改</span>
-                            <span class="btn delete">删除</span>
+                            <span class="btn update" @click="updateQuestion(item.id)" >修改</span>
+                            <span class="btn delete" @click="deleteQuestion(item.id)">删除</span>
                           </span>
                         </li>
                       </ul>
@@ -178,9 +178,9 @@
 
 
                       <modal  extraClass="treeDlg delete" :show="showDelete" :closeCb="this.closeDCb" :confirmCb="this.confirmDCb" :cancelCb="this.cancelDCb">
-                         <span slot="title">删除成绩</span>
+                         <span slot="title">删除題目</span>
                          <div slot="content">
-                             确定删除该条成绩？
+                             确定删除该題目？
                          </div>
                      </modal>
 
@@ -278,6 +278,10 @@ export default {
      optBodyTip:false,
      optOptTip:false,
      optResTip:false,
+     
+     showDelete:false,
+     curQueId:"",
+
 
      nameTip:false,
      zoneTip:false,
@@ -286,7 +290,7 @@ export default {
      scoreTip:false,
      showUpdateAns:false,
      showUpdateOpt:false,
-     showDelete:false,
+    
      curTeacherId:"",
      curTeacher:null
     };
@@ -320,9 +324,10 @@ export default {
                   body:body,
                   answer:answer,
                   analysis:analysis,
-                  courseId:this.curCourseId
+                  courseId:this.curCourseId,
+                  type:1
               }   
-              console.log(param)
+             this.$store.dispatch("addQuestion",param)
         }
  
         this.showAddAns=false;
@@ -369,9 +374,11 @@ export default {
                   body:body,
                   opt:this.getOptStr(opt),
                   answer:res,
-                  analysis:analysis
+                  analysis:analysis,
+                  courseId:this.curCourseId,
+                  type:2
               }   
-              console.log(param)
+             this.$store.dispatch("addQuestion",param)
         }
  
         this.showAddOpt=false;
@@ -380,8 +387,29 @@ export default {
         this.showAddOpt=false;
     },
 
+    //刪除題目
+    deleteQuestion(id){
+      this.showDelete=true;
+      this.curQueId=id;
+    },
 
 
+    closeDCb(){
+         this.showDelete=false;  
+         this.curQueId="";
+    },
+    confirmDCb(){
+         this.$store.dispatch("delQuestion",{id:this.curQueId,courseId:this.curCourseId});
+         this.showDelete=false;
+    },
+    cancelDCb(){
+      this.showDelete=false;
+      this.curQueId="";
+    },
+    //修改題目
+    updateQuestion(){
+
+    }, 
     closeCb(){
       this.clearUpdDlg()
     },
@@ -474,19 +502,8 @@ export default {
     deleteCourse(item){
         this.showDelete=true;
         this.curTeacherId=item.id;
-    },
-    closeDCb(){
-         this.showDelete=false;  
-         this.curTeacherId="";
-    },
-    confirmDCb(){
-         this.$store.dispatch("deleScore",{id:this.curTeacherId});
-         this.showDelete=false;
-    },
-    cancelDCb(){
-      this.showDelete=false;
-      this.curTeacherId="";
     }
+    
   },
   mounted() {},
   watch: {
