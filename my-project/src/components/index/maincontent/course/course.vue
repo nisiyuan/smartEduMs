@@ -3,7 +3,7 @@
                       <div class="con-header">课程详情 <span class="opt-bar add-course" @click="addAnsQue">添加简答题</span><span class="opt-bar add-course" @click="addOptQue">添加选择题</span></div>
                       <ul v-if="list.length" class="con-list test-list">
                         <li v-for="(item,index) in list" :key="item.id" class="item test">
-                          <a href="javascript:;" class="show-detail">
+                          <a href="javascript:;" class="show-detail" @click="showOptDetailDlg(item)">
                              <span class="index">{{index+1}}</span><span class="type" style="font-size:12px; margin-right:20px;color:rgb(14, 25, 202);">{{item.type==2?"简答题":"选择题"}}</span><span class="title">{{item.body}}</span>
                           </a>
                           <span class="opt-bar">
@@ -15,6 +15,10 @@
                       <div v-else class="no-question">
                           没有题目，点击右上角，添加题目~
                       </div>
+
+
+
+                      
                       <!-- 添加简单题 -->
                       <modal  extraClass="teacherDlg" :show="showAddAns" :closeCb="this.cancelAddAns" :confirmCb="this.confirmAddAns" :cancelCb="this.cancelAddAns">
                          <span slot="title" ref="optTitle">添加简答题</span>
@@ -73,7 +77,7 @@
                          </div>
                       </modal>
 
-                      <modal  extraClass="teacherDlg" :show="showUpdateAns" :closeCb="this.closeUCb" :confirmCb="this.confirmUCb" :cancelCb="this.cancelUCb">
+                      <!-- <modal  extraClass="teacherDlg" :show="showUpdateAns" :closeCb="this.closeUCb" :confirmCb="this.confirmUCb" :cancelCb="this.cancelUCb">
                          <span slot="title">修改简答题</span>
                          <div slot="content">
                 
@@ -96,7 +100,44 @@
                                   <textarea type="text" class="name" ref="name" placeholder="请输入解析"></textarea>
                              </div>
                          </div>
-                     </modal>
+                     </modal> -->
+                     
+                      <!-- 简答题详情 -->
+                      <modal  extraClass="teacherDlg" :show="showUpdAnsDtl" :closeCb="this.cancelOptDtl" :confirmCb="this.cancelOptDtl" :cancelCb="this.cancelOptDtl">
+                         <span slot="title" ref="optTitle">简答题详情</span>
+                         <div slot="content">
+                           
+                              <div class="add-name ans-body">
+                                  <span class="static-tip">题干:</span>
+                                  <div  type="text" class="name" style="height:auto" ref="ansbodyUDtl" placeholder="请输入题干"></div>
+                            
+                                  <div class="tip" v-show="ansBodyTip">
+                                     <span class="tip-info">题干不能为空！</span>
+                                  </div>
+                             </div>
+
+                              <div class="add-name ans-answer">
+                                  <span class="static-tip">答案:</span>
+                                  <div  type="text" style="height:auto" class="name" ref="ansansUDtl" placeholder="请输入答案"></div >
+                                  <div class="tip" v-show="ansAnsTip">
+                                     <span class="tip-info">答案不能为空！</span>
+                                  </div>
+                             </div>
+
+                              <div class="add-name ans-analysisU">
+                                  <span class="static-tip">解析:</span>
+                                  <div style="height:auto" type="text" class="name" ref="ansanyUDtl" placeholder="请输入解析"></div >
+                             </div>
+                         </div>
+                      </modal>
+
+
+
+
+
+
+
+
 
                      <!-- 添加选择题 -->
                       <modal  extraClass="teacherDlg  opt-question-wrap" id="opt-question-wrap" :show="showAddOpt" :closeCb="this.cancelAddOpt" :confirmCb="this.confirmAddOpt" :cancelCb="this.cancelAddOpt">
@@ -214,7 +255,49 @@
                              </div>
                          </div>
                      </modal>
+                     <!--選擇題详情 -->
+                     <modal  extraClass="teacherDlg  opt-question-wrap " id="upd-opt-question-wrap" :show="showOptDetail" :closeCb="this.cancelOptDtl" :confirmCb="this.cancelOptDtl" :cancelCb="this.cancelOptDtl">
+                         <span slot="title">选择题详情</span>
+                        <div slot="content" class="dlg-real-body">
+                
+                              <div class="add-name ans-body">
+                                  <span class="static-tip">题干: </span>
+                                  <div  type="text" class="name" ref="optBodyDtl" style="height:auto"></div>
+                             </div>
 
+                              <div class="add-name ans-answer">
+                                  <span class="static-tip">选项:</span>
+                                  <ul class="options" ref="optListDtl">
+                                      <li class="option">
+                                          <span>A:</span>
+                                          <div type="text" class="name" style="height:auto"></div>
+                                      </li>
+                                       <li class="option">
+                                          <span>B:</span>
+                                          <div type="text" class="name" style="height:auto"></div>
+                                      </li>
+                                       <li class="option">
+                                          <span>C:</span>
+                                          <div type="text" class="name" style="height:auto"></div>
+                                      </li>
+                                       <li class="option">
+                                          <span>D:</span>
+                                          <div type="text" class="name" style="height:auto"></div>
+                                      </li>
+                                  </ul>
+                             </div>
+
+                            <div class="add-name opt-answer">
+                                  <span class="static-tip">答案:</span>
+                                  <div type="text" class="name" ref="resultDtl" style="height:auto"></div>
+                             </div>
+
+                              <div class="add-name ans-analysis">
+                                  <span class="static-tip">解析:</span>
+                                  <div type="text" class="name" ref="optAnalyDtl" style="height:auto"></div>
+                             </div>
+                         </div>
+                     </modal>
 
                       <modal  extraClass="treeDlg delete" :show="showDelete" :closeCb="this.closeDCb" :confirmCb="this.confirmDCb" :cancelCb="this.cancelDCb">
                          <span slot="title">删除題目</span>
@@ -324,6 +407,11 @@ export default {
      showUpdAns:false,
      queType:"",
      showUpdateOpt:false,
+
+     showOptDetail:false,
+
+     showUpdAnsDtl:false,
+
 
 
      nameTip:false,
@@ -520,8 +608,33 @@ export default {
          this.showUpdateOpt=false;
      }
     }, 
+    //选择题详情
+    showOptDetailDlg(item){
+        if(item.type==1){
+           this.showOptDetail=true;
+           this.$refs.optBodyDtl.innerHTML=item.body;
 
+           let options=this.$refs.optListDtl.getElementsByClassName("option");
+           let opts=item.options.split("_");
+           for(let i=0;i<4;i++){
+           options[i].getElementsByClassName("name")[0].innerHTML=opts[i];
+           }
 
+           this.$refs.resultDtl.innerHTML=item.answer.split("_").join(",");
+           this.$refs.optAnalyDtl.innerHTML=item.analysis;
+        }else{
+            this.showUpdAnsDtl=true; 
+            this.$refs.ansbodyUDtl.innerHTML=item.body;
+            this.$refs.ansansUDtl.innerHTML=item.answer;
+            this.$refs.ansanyUDtl.innerHTML=item.analysis;
+            
+        }
+        
+    },
+    cancelOptDtl(){
+       this.showOptDetail=false;
+         this.showUpdAnsDtl=false;
+    },
 
 
     
