@@ -8,8 +8,8 @@
                                    课程列表 <span class=" arrow arrow-down">&#8744;</span> <span class="arrow arrow-up">&#8743;</span>
                                </div>
                              <ul class="course-list">
-                                <li v-for="(item) in list" :key="item.id" class="course-item">
-                                  <span class="name" @click="showCourseDetail(item.id)">{{item.name}}</span>
+                                <li v-for="(item,index) in list" :key="item.id" class="course-item" :class="{selected:curCourseId==index}">
+                                  <span class="name" @click="showCourseDetail(item.id,index)">{{item.name}}</span>
                                   <span class="opt-bar"> 
                                     <span class="btn pdate" @click="updateCourse(item)">修改</span>
                                     <span class="btn update" @click="deleteCourse(item)" >删除</span>
@@ -102,7 +102,7 @@ export default {
      showTip:false,
      showUpdate:false,
      showDelete:false,
-     curCourseId:""
+     curCourseId:0
     };
   },
   components:{
@@ -125,7 +125,8 @@ export default {
       this.$store.dispatch('changeContetSection',data);
       this.$store.dispatch('getSectionData',data);
     },
-    showCourseDetail(id){
+    showCourseDetail(id,index){
+        this.curCourseId=index;
         let param={
             courseId:id
         };
@@ -142,7 +143,7 @@ export default {
         if(courseName){
             let param={name:courseName}
             this.$store.dispatch("addCourse",param);
-           this.clearDlg("showAdd");
+           this.clearDlg("showAdd");    
         }else{
            this.showTip=true;
         }
@@ -200,6 +201,9 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getTreeData');
+    setTimeout(()=>{
+    this.showCourseDetail(this.list[0].id,0);
+    },200)
   },
   watch: {
 

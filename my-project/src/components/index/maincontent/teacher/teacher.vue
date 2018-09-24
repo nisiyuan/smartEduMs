@@ -127,6 +127,9 @@ export default {
   methods: {
    addCourse(){
         this.showAdd=true;
+        const name=this.$refs.name.value="";
+        const zone=this.$refs.zone.value="";
+        const tel=this.$refs.tel.value="";
     },
     closeCb(){
          this.clearDlg("showAdd");

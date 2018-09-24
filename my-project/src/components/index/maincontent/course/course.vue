@@ -2,7 +2,7 @@
   <div class="right-content course-detail">
                       <div class="con-header">课程详情 <span class="opt-bar add-course" @click="addAnsQue">添加简答题</span><span class="opt-bar add-course" @click="addOptQue">添加选择题</span></div>
                       <ul v-if="list.length" class="con-list test-list">
-                        <li v-for="(item,index) in list" :key="item.id" class="item test">
+                        <li v-for="(item,index) in list" :key="item.id" class="item test" >
                           <a href="javascript:;" class="show-detail" @click="showOptDetailDlg(item)">
                              <span class="index">{{index+1}}</span><span class="type" style="font-size:12px; margin-right:20px;color:rgb(14, 25, 202);">{{item.type==2?"简答题":"选择题"}}</span><span class="title">{{item.body}}</span>
                           </a>
@@ -12,7 +12,7 @@
                           </span>
                         </li>
                       </ul>
-                      <div v-else class="no-question">
+                      <div v-else class="no-question" style="text-align:center;margin-top:290px;">
                           没有题目，点击右上角，添加题目~
                       </div>
 
@@ -432,6 +432,9 @@ export default {
     // 添加简答题  
     addAnsQue(){
         this.showAddAns=true;
+        this.$refs.ansbody.value="";   
+        this.$refs.ansans.value="";
+        this.$refs.ansany.value="";  
     },
     confirmAddAns(){
         let body=this.$refs.ansbody.value;   
@@ -462,6 +465,16 @@ export default {
     // 添加选择题
     addOptQue(){
         this.showAddOpt=true;
+
+        this.$refs.optBody.value="";  
+        let opt=this.$refs.optList.getElementsByClassName("option");
+        this.$refs.result.value="";   
+        this.$refs.optAnaly.value="";
+         for(let i=0;i<opt.length;i++){
+         opt[i].getElementsByClassName("name")[0].value="";
+        
+     }
+
     },
     getOptFlag(opt){
      let flag=true;    

@@ -137,6 +137,10 @@ export default {
   methods: {
     addCourse(){
         this.showAdd=true;
+        this.$refs.name.value="";
+        this.$refs.zone.value="";
+        this.$refs.tel.value="";
+        this.$refs.score.value="";
     },
     closeCb(){
       this.clearUpdDlg()

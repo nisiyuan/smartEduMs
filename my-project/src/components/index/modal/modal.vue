@@ -60,7 +60,7 @@ export default {
     z-index: 200;
 }
 .modal .dialog{
-    width:420px;
+    width:450px;
     position: absolute;
     left: 50%;
     top: 50%;

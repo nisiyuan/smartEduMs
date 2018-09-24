@@ -370,7 +370,7 @@ border-bottom: 1px solid #dedede;
 .course-item.addcourse{
   font-size: 16px;
   font-weight: bold;
-  background: #547ef5;
+  background: #94acf1;
   text-align: center;
   padding-left: 0;
 }
